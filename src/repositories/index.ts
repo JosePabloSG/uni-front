@@ -1,0 +1,1 @@
+export { default as nivelAcademicoRepository } from "./NivelAcademico/NivelAcademicoRepository";

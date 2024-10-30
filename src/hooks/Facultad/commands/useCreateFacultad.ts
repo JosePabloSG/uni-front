@@ -66,7 +66,6 @@ export default useCreateFacultad;
 
 export const convertToFormData = (facultad: any): CreateFacultad => {
   return {
-    idFacultad: parseInt(facultad.idFacultad),
     nombreFacultad: facultad.nombreFacultad,
   };
 };

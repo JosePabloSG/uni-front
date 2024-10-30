@@ -1,27 +1,25 @@
 export interface ProgramaAcademico {
   idProgAcademico?: number;
   nombrePrograma: string;
-  duracion: number;
-  idNivelAcademico: number;
+  duracion?: number;
+  idNivelAcademico?: number;
   nivelAcademico?: string;
-  idFacultad: number;
+  idFacultad?: number;
   nombreFacultad?: string;
 }
 
 
 export interface CreateProgramaAcademico {
-  idProgAcademico: number;
   nombrePrograma: string;
-  duracion: number;
-  idNivelAcademico: number;
-  idFacultad: number;
+  Duracion: number;
+  IdNivelAcademico: number;
+  IdFacultad: number;
 }
 
 
 export interface UpdateProgramaAcademico {
-  idProgAcademico?: number;
   nombrePrograma?: string;
-  duracion?: number;
-  idNivelAcademico?: number;
-  idFacultad?: number;
+  Duracion?: number;
+  IdNivelAcademico?: number;
+  IdFacultad?: number;
 }

@@ -36,18 +36,6 @@ export default function AddNivelAcademicoModal() {
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
-                <Label htmlFor="idNivelAcademico">ID</Label>
-                <Input
-                  id="idNivelAcademico"
-                  {...register("idNivelAcademico")}
-                />
-                {errors.idNivelAcademico && (
-                  <p className="text-red-500 text-xs">
-                    {errors.idNivelAcademico.message}
-                  </p>
-                )}
-              </div>
-              <div className="grid gap-2">
                 <Label htmlFor="name">Nombre</Label>
                 <Input
                   id="nombreNivelAcademico"

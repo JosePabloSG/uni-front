@@ -70,7 +70,6 @@ export const convertToFormData = (
   programaAcademico: any
 ): UpdateProgramaAcademico => {
   return {
-    idProgAcademico: programaAcademico.idProgAcademico,
     nombrePrograma: programaAcademico.nombrePrograma, 
     duracion: programaAcademico.duracion,
     idNivelAcademico: programaAcademico.idNivelAcademico,

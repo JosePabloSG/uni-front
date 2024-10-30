@@ -5,7 +5,7 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateNivelAcademico } from "@/services";
-import { NivelAcademico } from "@/types";
+import { UpdateNivelAcademico } from "@/types";
 
 type FormsFields = z.infer<typeof updateNivelAcademicoSchema>;
 
@@ -28,7 +28,7 @@ const useUpdateNivelAcademico = ({ setIsOpen, nivelId }: Props) => {
   });
 
   const mutation = useMutation({
-    mutationFn: (data: NivelAcademico) => updateNivelAcademico(nivelId, data),
+    mutationFn: (data: UpdateNivelAcademico) => updateNivelAcademico(nivelId, data),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["nivelAcademicos"],
@@ -62,9 +62,8 @@ const useUpdateNivelAcademico = ({ setIsOpen, nivelId }: Props) => {
 
 export default useUpdateNivelAcademico;
 
-export const convertToFormData = (nivel: any): NivelAcademico => {
+export const convertToFormData = (nivel: any): UpdateNivelAcademico => {
   return {
-    idNivelAcademico: nivel.idNivelAcademico,
     nombreNivelAcademico: nivel.nombreNivelAcademico,
   };
 };

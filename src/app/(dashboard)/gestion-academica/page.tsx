@@ -1,4 +1,6 @@
 "use client";
+import AddFacultadModal from "@/components/dashboard/Facultad/add-facultad-modal";
+import FacultadTable from "@/components/dashboard/Facultad/facultad-table";
 import AddNivelAcademicoModal from "@/components/dashboard/NivelesAcademicos/add-nivel-academico-modal";
 import NivelAcademicoTable from "@/components/dashboard/NivelesAcademicos/nivel-academico-table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -27,7 +29,8 @@ export default function GestionAcademica() {
         <TabsContent value="Facultades">
           <div className="mt-6">
             <h2 className="text-2xl font-bold mb-4">Facultades</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed</p>
+           <AddFacultadModal />
+           <FacultadTable />
           </div>
         </TabsContent>
         <TabsContent value="Programas Académicos">

@@ -17,3 +17,5 @@ export * from "./Inscripcion/commads/createInscripcion";
 export * from "./Inscripcion/commads/deleteInscripcion";
 export * from "./Inscripcion/commads/updateInscripcion";
 export * from "./Inscripcion/queries/getAllInscripcion";
+
+export * from "./HistorialCambio/queries/getHistorialCambio";

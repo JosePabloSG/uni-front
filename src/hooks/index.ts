@@ -17,3 +17,5 @@ export { default as useGetAllInscripcion } from "./Inscripcion/queries/useGetAll
 export { default as useCreateInscripcion } from "./Inscripcion/commands/useCreateInscripcion";
 export { default as useDeleteInscripcion } from "./Inscripcion/commands/useDeleteInscripcion";
 export { default as useUpdateInscripcion } from "./Inscripcion/commands/useUpdateInscripcion";
+
+export { default as useGetAllHistorialCambio } from "./HistorialCambio/queries/useGetAllHistorialCambio";

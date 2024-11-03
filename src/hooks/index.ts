@@ -19,3 +19,8 @@ export { default as useDeleteInscripcion } from "./Inscripcion/commands/useDelet
 export { default as useUpdateInscripcion } from "./Inscripcion/commands/useUpdateInscripcion";
 
 export { default as useGetAllHistorialCambio } from "./HistorialCambio/queries/useGetAllHistorialCambio";
+
+export { default as useGetAllRecursosAcademicos } from "./RecursoAcademico/queries/useGetAllRecursosAcademicos";
+export { default as useCreateRecursoAcademico } from "./RecursoAcademico/commands/useCreateRecursoAcademico";
+export { default as useDeleteRecursoAcademico } from "./RecursoAcademico/commands/useDeleteRecursoAcademico";
+export { default as useUpdateRecursoAcademico } from "./RecursoAcademico/commands/useUpdateRecursoAcademico";

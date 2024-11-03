@@ -18,4 +18,9 @@ export * from "./Inscripcion/commads/deleteInscripcion";
 export * from "./Inscripcion/commads/updateInscripcion";
 export * from "./Inscripcion/queries/getAllInscripcion";
 
+export * from "./RecursoAcademico/commads/createRecursoAcademico";
+export * from "./RecursoAcademico/commads/deleteRecursoAcademicoById";
+export * from "./RecursoAcademico/commads/updateRecursoAcademico";
+export * from "./RecursoAcademico/queries/getAllRecursosAcademicos";
+
 export * from "./HistorialCambio/queries/getHistorialCambio";

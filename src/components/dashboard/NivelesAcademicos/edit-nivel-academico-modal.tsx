@@ -19,7 +19,7 @@ interface Props {
   nivelId: number;
 }
 
-export default function EditNivelAcademicoModal({ nivelId, nivel }: Props) {
+export default function EditAulaAcademicoModal({ nivelId, nivel }: Props) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { register, errors, handleSubmit, onSubmit } = useUpdateNivelAcademico({
     setIsOpen: setIsEditModalOpen,

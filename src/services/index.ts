@@ -3,9 +3,9 @@ export * from "./NivelAcademico/commads/deleteNivelAcademico";
 export * from "./NivelAcademico/commads/updateNivelAcademico";
 export * from "./NivelAcademico/queries/getAllNivelAcademico";
 
-export * from "./Facultad/commads/createFacultad";
-export * from "./Facultad/commads/deleteFacultad";
-export * from "./Facultad/commads/updateFacultad";
+export * from "./Facultad/commands/createFacultad";
+export * from "./Facultad/commands/deleteFacultad";
+export * from "./Facultad/commands/updateFacultad";
 export * from "./Facultad/queries/getAllFacultad";
 
 export * from "./ProgramaAcademico/commands/createProgramaAcademico";
@@ -17,3 +17,19 @@ export * from "./Inscripcion/commads/createInscripcion";
 export * from "./Inscripcion/commads/deleteInscripcion";
 export * from "./Inscripcion/commads/updateInscripcion";
 export * from "./Inscripcion/queries/getAllInscripcion";
+
+export * from "./HistorialAcademico/commands/createHistorialAcademico";
+export * from "./HistorialAcademico/commands/deleteHistorialAcademico";
+export * from "./HistorialAcademico/commands/updateHistorialAcademico";
+export * from "./HistorialAcademico/queries/getAllHistorialAcademico";
+
+export * from "./Aula/commands/createAula";
+export * from "./Aula/commands/deleteAula";
+export * from "./Aula/commands/updateAula";
+export * from "./Aula/queries/getAllAula";
+
+export * from "./Curso_Aula/commands/createCurso_Aula";
+export * from "./Curso_Aula/commands/deleteCurso-Aula";
+export * from "./Curso_Aula/commands/updateCurso-Aula";
+export * from "./Curso_Aula/queries/getAllCurso_Aula";
+

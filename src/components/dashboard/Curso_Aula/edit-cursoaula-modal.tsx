@@ -9,21 +9,21 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import useUpdateNivelAcademico from "@/hooks/NivelAcademico/commands/useUpdateNivelAcademico";
-import { NivelAcademico } from "@/types";
+import { useUpdateCursoAula } from "@/hooks";
+import { CursoAula } from "@/types";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
 
 interface Props {
-  nivel: NivelAcademico;
-  nivelId: number;
+  cursoaula: CursoAula;
+  cursoaulaId: number;
 }
 
-export default function EditAulaAcademicoModal({ nivelId, nivel }: Props) {
+export default function EditCursoAulaModal({ cursoaulaId, cursoaula }: Props) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const { register, errors, handleSubmit, onSubmit } = useUpdateNivelAcademico({
+  const { register, errors, handleSubmit, onSubmit } = useUpdateCursoAula({
     setIsOpen: setIsEditModalOpen,
-    nivelId: nivelId,
+    cursoAulaId: cursoaulaId,
   });
   return (
     <>
@@ -38,33 +38,46 @@ export default function EditAulaAcademicoModal({ nivelId, nivel }: Props) {
       <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Editar Nivel Académico</DialogTitle>
+            <DialogTitle>Editar Aula</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-4 py-4">
-              <div className="grid gap-2 col-span-2">
-                <Label htmlFor="idNivelAcademico">ID</Label>
+              <div className="grid gap-2">
+                <Label htmlFor="horarioClase"> Horario de Clase</Label>
                 <Input
-                  defaultValue={nivel.idNivelAcademico}
-                  id="idNivelAcademico"
-                  {...register("idNivelAcademico")}
+                  defaultValue={cursoaula.horarioClase}
+                  id="horarioClase"
+                  {...register("horarioClase")}
                 />
-                {errors.idNivelAcademico && (
+                {errors.horarioClase && (
                   <p className="text-red-500 text-xs">
-                    {errors.idNivelAcademico.message}
+                    {errors.horarioClase.message}
                   </p>
                 )}
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="nombreNivelAcademico">Nombre</Label>
+                <Label htmlFor="idCurso"> Id del Curso </Label>
                 <Input
-                  defaultValue={nivel.nombreNivelAcademico}
-                  id="nombreNivelAcademico"
-                  {...register("nombreNivelAcademico")}
+                  defaultValue={cursoaula.idCurso}
+                  id="idCurso"
+                  {...register("idCurso")}
                 />
-                {errors.nombreNivelAcademico && (
+                {errors.idCurso && (
                   <p className="text-red-500 text-xs">
-                    {errors.nombreNivelAcademico.message}
+                    {errors.idCurso.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <Label htmlFor="idAula">Id de la Aula</Label>
+                <Input
+                  defaultValue={cursoaula.idAula}
+                  id="idAula"
+                  {...register("idAula")}
+                />
+                {errors.idAula && (
+                  <p className="text-red-500 text-xs">
+                    {errors.idAula.message}
                   </p>
                 )}
               </div>

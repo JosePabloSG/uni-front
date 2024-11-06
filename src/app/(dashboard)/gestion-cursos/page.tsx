@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 export default function GestionCursos() {
   return (
     <div className="container mx-auto p-4">
-      <Tabs>
+      <Tabs defaultValue="cursos">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="cursos">Cursos</TabsTrigger>
           <TabsTrigger value="docentes-cursos">Docentes-Cursos</TabsTrigger>

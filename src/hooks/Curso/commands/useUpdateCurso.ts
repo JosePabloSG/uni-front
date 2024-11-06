@@ -66,9 +66,9 @@ export default useUpdateCurso;
 export const convertToFormData = (curso: any): UpdateCurso => {
   return {
     Nombre: curso.Nombre,
-    CodigoCurso: curso.Codigo_Curso,
+    CodigoCurso: curso.CodigoCurso,
     Creditos: curso.Creditos,
-    HorasSemana: curso.Horas_Semana,
-    IdProgAcademico: curso.Id_Prog_Academico,
+    HorasSemana: curso.HorasSemana,
+    IdProgAcademico: curso.IdProgAcademico,
   };
 };

@@ -1,4 +1,4 @@
-import { useGetAllCursoRecursoAcademico } from "@/hooks";
+import { useGetAllCurso, useGetAllCursoRecursoAcademico, useGetAllRecursosAcademicos } from "@/hooks";
 import {
   Table,
   TableBody,
@@ -13,6 +13,8 @@ import DeleteCursoRecursoAcademicoModal from "./delete-curso-recurso-academico-m
 export default function CursoRecursoAcademicoTable() {
   const { cursoRecursoAcademicos, isLoading, isError, error } =
     useGetAllCursoRecursoAcademico();
+  const { cursos } = useGetAllCurso();
+  const { recursosAcademicos } = useGetAllRecursosAcademicos();
 
   if (isLoading) return <p>Cargando cursos...</p>;
   if (isError) return <p>Error: {error?.message}</p>;
@@ -23,8 +25,8 @@ export default function CursoRecursoAcademicoTable() {
         <TableHeader>
           <TableRow>
             <TableHead>ID</TableHead>
-            <TableHead>ID Curso</TableHead>
-            <TableHead>ID Recurso Académico</TableHead>
+            <TableHead>Curso</TableHead>
+            <TableHead>Recurso Académico</TableHead>
             <TableHead>Acciones</TableHead>
           </TableRow>
         </TableHeader>
@@ -32,8 +34,12 @@ export default function CursoRecursoAcademicoTable() {
           {cursoRecursoAcademicos?.map((cursoRecursoAcademico) => (
             <TableRow key={cursoRecursoAcademico.idCursoRecAcademico}>
               <TableCell>{cursoRecursoAcademico.idCursoRecAcademico}</TableCell>
-              <TableCell>{cursoRecursoAcademico.idCurso}</TableCell>
-              <TableCell>{cursoRecursoAcademico.idRecursoAcademico}</TableCell>
+              <TableCell>
+                {cursos?.find(curso => curso.idCurso === cursoRecursoAcademico.idCurso)?.nombre}
+              </TableCell>
+              <TableCell>
+                {recursosAcademicos?.find(recurso => recurso.idRecursoAcademico === cursoRecursoAcademico.idRecursoAcademico)?.tipo}
+              </TableCell>
               <TableCell>
                 {cursoRecursoAcademico.idCursoRecAcademico !== undefined && (
                   <>
@@ -56,4 +62,3 @@ export default function CursoRecursoAcademicoTable() {
     </div>
   );
 }
-

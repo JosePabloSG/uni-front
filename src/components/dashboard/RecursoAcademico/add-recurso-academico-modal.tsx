@@ -45,8 +45,8 @@ export default function AddRecursoAcademicoModal() {
                     <SelectValue placeholder="Seleccionar estado" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Disponible">Disponible</SelectItem>
-                    <SelectItem value="No disponible">No disponible</SelectItem>
+                    <SelectItem value="Activo">Activo</SelectItem>
+                    <SelectItem value="Inactivo">Inactivo</SelectItem>
                   </SelectContent>
                 </Select>
                 {errors.estado && (

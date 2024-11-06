@@ -24,3 +24,14 @@ export { default as useGetAllRecursosAcademicos } from "./RecursoAcademico/queri
 export { default as useCreateRecursoAcademico } from "./RecursoAcademico/commands/useCreateRecursoAcademico";
 export { default as useDeleteRecursoAcademico } from "./RecursoAcademico/commands/useDeleteRecursoAcademico";
 export { default as useUpdateRecursoAcademico } from "./RecursoAcademico/commands/useUpdateRecursoAcademico";
+
+export { default as useGetAllCurso } from "./Curso/queries/useGetAllCurso";
+export { default as useCreateCurso } from "./Curso/commands/useCreateCurso";
+export { default as useDeleteCurso } from "./Curso/commands/useDeleteCurso";
+export { default as useUpdateCurso } from "./Curso/commands/useUpdateCurso";
+
+export { default as useGetAllCursoRecursoAcademico } from "./CursoRecursoAcademico/queries/useGetAllCursoRecursoAcademico";
+export { default as useCreateCursoRecursoAcademico } from "./CursoRecursoAcademico/commands/useCreateCursoRecursoAcademico";
+export { default as useDeleteCursoRecursoAcademico } from "./CursoRecursoAcademico/commands/useDeleteCursoRecursoAcademico";  
+export { default as useUpdateCursoRecursoAcademico } from "./CursoRecursoAcademico/commands/useUpdateCursoRecursoAcademico";
+

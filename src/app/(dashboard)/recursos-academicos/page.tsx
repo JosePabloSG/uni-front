@@ -1,4 +1,6 @@
 "use client";
+import AddCursoRecursoAcademicoModal from "@/components/dashboard/CursoRecursoAcademico/add-curso-recurso-academico-modal";
+import CursoRecursoAcademicoTable from "@/components/dashboard/CursoRecursoAcademico/curso-recurso-academico-table";
 import AddRecursoAcademicoModal from "@/components/dashboard/RecursoAcademico/add-recurso-academico-modal";
 import RecursoAcademicoTable from "@/components/dashboard/RecursoAcademico/recurso-academico.table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -35,7 +37,8 @@ export default function GestionAcademica() {
             <h2 className="text-2xl font-bold mb-4">
               Cursos-Recursos Académicos
             </h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed</p>
+            <AddCursoRecursoAcademicoModal />
+            <CursoRecursoAcademicoTable />
           </div>
         </TabsContent>
       </Tabs>

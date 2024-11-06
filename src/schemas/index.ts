@@ -3,3 +3,5 @@ export * from "./Facultad/FacultadSchema";
 export * from "./ProgramaAcademico/ProgramaAcademicoSchema";
 export * from "./Inscripcion/InscripcionSchema";
 export * from "./RecursoAcademico/RecursoAcademicoSchema";
+export * from "./Curso/CursoSchema";
+export * from "./CursoRecursoAcademico/CursoRecursoAcademicoSchema";

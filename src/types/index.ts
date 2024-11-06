@@ -5,3 +5,5 @@ export * from "./ProgramaAcademico/ProgramaAcademico";
 export * from "./Inscripcion/Inscripcion";
 export * from "./HistorialCambio/HistorialCambio";
 export * from "./RecursoAcademico/RecursoAcademico";
+export * from "./Curso/curso";
+export * from "./CursoRecursoAcademico/cursoRecursoAcademico";

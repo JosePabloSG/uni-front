@@ -1,8 +1,12 @@
 "use client";
+
+import AddAulaModal from "@/components/dashboard/Aula/add-aula-modal";
+import AulaTable from "@/components/dashboard/Aula/aula-table";
 import AddCursoRecursoAcademicoModal from "@/components/dashboard/CursoRecursoAcademico/add-curso-recurso-academico-modal";
 import CursoRecursoAcademicoTable from "@/components/dashboard/CursoRecursoAcademico/curso-recurso-academico-table";
 import AddRecursoAcademicoModal from "@/components/dashboard/RecursoAcademico/add-recurso-academico-modal";
 import RecursoAcademicoTable from "@/components/dashboard/RecursoAcademico/recurso-academico.table";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function GestionAcademica() {
@@ -11,7 +15,9 @@ export default function GestionAcademica() {
       <h1 className="text-3xl font-bold mb-6">Configuración del Sistema</h1>
       <Tabs defaultValue="Aulas">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="Aulas">Aulas</TabsTrigger>
+          <TabsTrigger value="Aulas">
+            Aulas
+          </TabsTrigger>
           <TabsTrigger value="Recursos Académicos">
             Recursos Académicos
           </TabsTrigger>
@@ -22,7 +28,8 @@ export default function GestionAcademica() {
         <TabsContent value="Aulas">
           <div className="mt-6">
             <h2 className="text-2xl font-bold mb-4">Aulas</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed</p>
+            <AddAulaModal />
+            <AulaTable />
           </div>
         </TabsContent>
         <TabsContent value="Recursos Académicos">
@@ -41,11 +48,14 @@ export default function GestionAcademica() {
             <CursoRecursoAcademicoTable />
           </div>
         </TabsContent>
+       
       </Tabs>
     </div>
   );
 }
 
+
 // aulas
 // Recursos Académicos
 // Cursos-Recursos Académicos
+

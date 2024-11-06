@@ -12,10 +12,10 @@ export default function AuthLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={` antialiased`}
-      >
-        {children}
+      <body className={` antialiased`}>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground p-20">
+          {children}
+        </div>
       </body>
     </html>
   );

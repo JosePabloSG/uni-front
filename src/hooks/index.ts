@@ -33,3 +33,22 @@ export { default as useGetAllCursoAula } from "./Curso_Aula/queries/useGetAllCur
 export { default as useCreateCursoAula } from "./Curso_Aula/commands/useCreateCursoAula";
 export { default as useDeleteCursoAula } from "./Curso_Aula/commands/useDeleteCursoAula";
 export { default as useUpdateCursoAula } from "./Curso_Aula/commands/useUpdateCursoAula";
+
+export { default as useGetAllHistorialCambio } from "./HistorialCambio/queries/useGetAllHistorialCambio";
+
+export { default as useGetAllRecursosAcademicos } from "./RecursoAcademico/queries/useGetAllRecursosAcademicos";
+export { default as useCreateRecursoAcademico } from "./RecursoAcademico/commands/useCreateRecursoAcademico";
+export { default as useDeleteRecursoAcademico } from "./RecursoAcademico/commands/useDeleteRecursoAcademico";
+export { default as useUpdateRecursoAcademico } from "./RecursoAcademico/commands/useUpdateRecursoAcademico";
+
+export { default as useGetAllCurso } from "./Curso/queries/useGetAllCurso";
+export { default as useCreateCurso } from "./Curso/commands/useCreateCurso";
+export { default as useDeleteCurso } from "./Curso/commands/useDeleteCurso";
+export { default as useUpdateCurso } from "./Curso/commands/useUpdateCurso";
+
+export { default as useGetAllCursoRecursoAcademico } from "./CursoRecursoAcademico/queries/useGetAllCursoRecursoAcademico";
+export { default as useCreateCursoRecursoAcademico } from "./CursoRecursoAcademico/commands/useCreateCursoRecursoAcademico";
+export { default as useDeleteCursoRecursoAcademico } from "./CursoRecursoAcademico/commands/useDeleteCursoRecursoAcademico";  
+export { default as useUpdateCursoRecursoAcademico } from "./CursoRecursoAcademico/commands/useUpdateCursoRecursoAcademico";
+
+

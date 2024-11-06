@@ -42,19 +42,6 @@ export default function EditAulaAcademicoModal({ nivelId, nivel }: Props) {
           </DialogHeader>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-4 py-4">
-              <div className="grid gap-2 col-span-2">
-                <Label htmlFor="idNivelAcademico">ID</Label>
-                <Input
-                  defaultValue={nivel.idNivelAcademico}
-                  id="idNivelAcademico"
-                  {...register("idNivelAcademico")}
-                />
-                {errors.idNivelAcademico && (
-                  <p className="text-red-500 text-xs">
-                    {errors.idNivelAcademico.message}
-                  </p>
-                )}
-              </div>
               <div className="grid gap-2">
                 <Label htmlFor="nombreNivelAcademico">Nombre</Label>
                 <Input

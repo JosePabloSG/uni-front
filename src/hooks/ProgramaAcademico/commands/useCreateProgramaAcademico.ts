@@ -64,10 +64,9 @@ export default useCreateProgramaAcademico;
 
 export const convertToFormData = (programaAcademico: any): CreateProgramaAcademico => {
   return {
-    idProgAcademico: parseInt(programaAcademico.idProgAcademico),
     nombrePrograma: programaAcademico.nombrePrograma,
-    duracion: programaAcademico.duracion,
-    idNivelAcademico: parseInt(programaAcademico.idNivelAcademico),
-    idFacultad: parseInt(programaAcademico.idFacultad),
+    Duracion: programaAcademico.Duracion,
+    IdNivelAcademico: parseInt(programaAcademico.IdNivelAcademico),
+    IdFacultad: parseInt(programaAcademico.IdFacultad),
   };
 };

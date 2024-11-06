@@ -33,3 +33,21 @@ export * from "./Curso_Aula/commands/deleteCurso-Aula";
 export * from "./Curso_Aula/commands/updateCurso-Aula";
 export * from "./Curso_Aula/queries/getAllCurso_Aula";
 
+export * from "./RecursoAcademico/commads/createRecursoAcademico";
+export * from "./RecursoAcademico/commads/deleteRecursoAcademicoById";
+export * from "./RecursoAcademico/commads/updateRecursoAcademico";
+export * from "./RecursoAcademico/queries/getAllRecursosAcademicos";
+
+export * from "./Curso/commands/createCurso";
+export * from "./Curso/commands/deleteCurso";
+export * from "./Curso/commands/updateCurso";
+export * from "./Curso/queries/getAllCurso";
+
+export * from "./CursoRecursoAcademico/commands/createCursoRecursoAcademico";
+export * from "./CursoRecursoAcademico/commands/deleteCursoRecursoAcademico";
+export * from "./CursoRecursoAcademico/commands/updateCursoRecursoAcademico";
+export * from "./CursoRecursoAcademico/queries/getAllCursoRecursoAcademico";
+
+export * from "./HistorialCambio/queries/getHistorialCambio";
+
+

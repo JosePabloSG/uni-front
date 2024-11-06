@@ -6,7 +6,7 @@ import { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import { createNivelAcademico } from "@/services";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { NivelAcademico } from "@/types";
+import { CreateNivelAcademico } from "@/types";
 
 type FormsFields = z.infer<typeof createNivelAcademicoSchema>;
 
@@ -62,9 +62,8 @@ const useCreateNivelAcademico = () => {
 
 export default useCreateNivelAcademico;
 
-export const convertToFormData = (nivel: any): NivelAcademico => {
+export const convertToFormData = (nivel: any): CreateNivelAcademico => {
   return {
-    idNivelAcademico: parseInt(nivel.idNivelAcademico),
     nombreNivelAcademico: nivel.nombreNivelAcademico,
   };
 };

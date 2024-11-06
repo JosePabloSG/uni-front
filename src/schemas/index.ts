@@ -5,3 +5,8 @@ export * from "./Inscripcion/InscripcionSchema";
 export * from "./HistorialAcademico/HistorialAcademicoSchema";
 export * from "./Aula/AulaSchema";
 export * from "./Curso_Aula/CursoAulaSchema";
+export * from "./RecursoAcademico/RecursoAcademicoSchema";
+export * from "./Curso/CursoSchema";
+export * from "./CursoRecursoAcademico/CursoRecursoAcademicoSchema";
+export * from "./auth/LoginSchema";
+

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateFacultad } from "@/services";
-import { Facultad } from "@/types";
+import { UpdateFacultad } from "@/types";
 
 type FormsFields = z.infer<typeof updateFacultadSchema>;
 
@@ -29,7 +29,7 @@ const useUpdateFacultad = ({ setIsOpen, facultadId }: Props) => {
   });
 
   const mutation = useMutation({
-    mutationFn: (data: Facultad) => updateFacultad(facultadId, data),
+    mutationFn: (data: UpdateFacultad) => updateFacultad(facultadId, data),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["facultad"],
@@ -63,9 +63,8 @@ const useUpdateFacultad = ({ setIsOpen, facultadId }: Props) => {
 
 export default useUpdateFacultad;
 
-export const convertToFormData = (facultad: any): Facultad => {
+export const convertToFormData = (facultad: any): UpdateFacultad => {
   return {
-    idFacultad: facultad.idFacultad,
     nombreFacultad: facultad.nombreFacultad,
   };
 };

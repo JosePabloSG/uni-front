@@ -35,19 +35,6 @@ export default function AddFacultadModal() {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
-                <Label htmlFor="idFacultad">ID</Label>
-                <Input
-                  defaultValue={0}
-                  id="idFacultad"
-                  {...register("idFacultad")}
-                />
-                {errors.idFacultad && (
-                  <p className="text-red-500 text-xs">
-                    {errors.idFacultad.message}
-                  </p>
-                )}
-              </div>
-              <div className="grid gap-2">
                 <Label htmlFor="nombreFacultad">Nombre</Label>
                 <Input
                   id="nombreFacultad"

@@ -8,7 +8,14 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { useCreateHistorialAcademico } from "@/hooks";
+import { useCreateHistorialAcademico, useGetAllCurso } from "@/hooks";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function AddHistorialAcademicoModal() {
   const {
@@ -19,7 +26,9 @@ export default function AddHistorialAcademicoModal() {
     isOpen,
     setIsOpen,
     errors,
+    setValue,
   } = useCreateHistorialAcademico();
+  const { cursos } = useGetAllCurso();
 
   return (
     <>
@@ -36,10 +45,31 @@ export default function AddHistorialAcademicoModal() {
               
                {/* Fecha de Calificación */}
                <div className="grid gap-2">
-                <Label htmlFor="idCurso">Id Curso</Label>
-                <Input id="idCurso" {...register("idCurso")} />
+                <Label htmlFor="idCurso">Curso</Label>
+                <Select
+                  onValueChange={(value) =>
+                    setValue("idCurso", Number(value))
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Seleccionar un curso" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {cursos &&
+                      cursos.map((curso) => (
+                        <SelectItem
+                          key={curso?.idCurso}
+                          value={(curso?.idCurso ?? "").toString()}
+                        >
+                          {curso?.nombre}
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
                 {errors.idCurso && (
-                  <p className="text-red-500 text-xs">{errors.idCurso.message}</p>
+                  <p className="text-red-500 text-xs">
+                    {errors.idCurso.message}
+                  </p>
                 )}
               </div>
 

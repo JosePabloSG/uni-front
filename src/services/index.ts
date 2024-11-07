@@ -53,6 +53,11 @@ export * from "./Docente/commands/deleteDocente";
 export * from "./Docente/commands/updateDocente";
 export * from "./Docente/queries/getAllDocente";
 
+export * from "./DocenteCurso/commands/createDocenteCurso";
+export * from "./DocenteCurso/commands/deleteDocenteCurso";
+export * from "./DocenteCurso/commands/updateDocenteCurso";
+export * from "./DocenteCurso/queries/getAllDocenteCurso";
+
 export * from "./HistorialCambio/queries/getHistorialCambio";
 
 export * from "./Horario/commands/createHorario";

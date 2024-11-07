@@ -50,4 +50,7 @@ export * from "./CursoRecursoAcademico/queries/getAllCursoRecursoAcademico";
 
 export * from "./HistorialCambio/queries/getHistorialCambio";
 
-
+export * from "./Horario/commands/createHorario";
+export * from "./Horario/commands/deleteHorario";
+export * from "./Horario/commands/updateHorario";
+export * from "./Horario/queries/getAllHorario";    

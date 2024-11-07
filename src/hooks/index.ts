@@ -51,4 +51,7 @@ export { default as useCreateCursoRecursoAcademico } from "./CursoRecursoAcademi
 export { default as useDeleteCursoRecursoAcademico } from "./CursoRecursoAcademico/commands/useDeleteCursoRecursoAcademico";  
 export { default as useUpdateCursoRecursoAcademico } from "./CursoRecursoAcademico/commands/useUpdateCursoRecursoAcademico";
 
-
+export { default as useGetAllHorario } from "./Horario/queries/useGetAllHorario";
+export { default as useCreateHorario } from "./Horario/commands/useCreateHorario";
+export { default as useDeleteHorario } from "./Horario/commands/useDeleteHorario";
+export { default as useUpdateHorario } from "./Horario/commands/useUpdateHorario";

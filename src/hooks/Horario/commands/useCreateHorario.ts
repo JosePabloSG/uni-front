@@ -1,16 +1,16 @@
-import {  createAulaSchema } from "@/schemas";
+import { createHorarioSchema } from "@/schemas";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
-import { createAula } from "@/services";
+import { createHorario } from "@/services";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {  CreateAula } from "@/types";
+import { CreateHorario } from "@/types";
 
-type FormsFields = z.infer<typeof createAulaSchema>;
+type FormsFields = z.infer<typeof createHorarioSchema>;
 
-const useCreateAula = () => {
+const useCreateHorario = () => {
   const {
     register,
     handleSubmit,
@@ -18,7 +18,7 @@ const useCreateAula = () => {
     formState: { errors },
     setError,
   } = useForm<FormsFields>({
-    resolver: zodResolver(createAulaSchema),
+    resolver: zodResolver(createHorarioSchema),
   });
   const [isOpen, setIsOpen] = useState(false);
   const queryClient = useQueryClient();
@@ -28,10 +28,10 @@ const useCreateAula = () => {
   };
 
   const mutation = useMutation({
-    mutationFn: (data: FormsFields) => createAula(data),
+    mutationFn: (data: FormsFields) => createHorario(data),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["Aula"],
+        queryKey: ["Horario"],
       });
     },
   });
@@ -60,14 +60,13 @@ const useCreateAula = () => {
   };
 };
 
-export default useCreateAula;
+export default useCreateHorario;
 
-export const convertToFormData = (aula: any): CreateAula => {
+export const convertToFormData = (horario: any): CreateHorario => {
   return {
-
-    codigoAula: aula.codigoAula,
-    capacidad: parseInt(aula.capacidad),
-    ubicacion: aula.ubicacion,
-    equipamiento: aula.equipamiento,
+    fechaInicio: horario.fechaInicio,
+    fechaFin: horario.fechaFin,
+    idDocente: parseInt(horario.idDocente),
+    idCurso: parseInt(horario.idCurso)
   };
 };

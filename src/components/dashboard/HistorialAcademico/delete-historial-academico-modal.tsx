@@ -36,7 +36,7 @@ export default function DeleteHistorialAcademicoModal({ id }: Props) {
           <DialogHeader>
             <DialogTitle>Confirmar Eliminación</DialogTitle>
             <DialogDescription>
-              ¿Estás seguro de que quieres eliminar este departamento? Esta
+              ¿Estás seguro de que quieres eliminar este historial académico? Esta
               acción no se puede deshacer.
             </DialogDescription>
           </DialogHeader>

@@ -43,7 +43,7 @@ export default function AddHistorialAcademicoModal() {
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className="grid gap-4 grid-cols-1 md:grid-cols-2 py-4">
               
-               {/* Fecha de Calificación */}
+               
                <div className="grid gap-2">
                 <Label htmlFor="idCurso">Curso</Label>
                 <Select

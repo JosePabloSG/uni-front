@@ -11,3 +11,5 @@ export * from "./RecursoAcademico/RecursoAcademico";
 export * from "./Curso/curso";
 export * from "./CursoRecursoAcademico/cursoRecursoAcademico";
 export * from "./Horario/Horario";
+export * from "./Docente/docente";
+

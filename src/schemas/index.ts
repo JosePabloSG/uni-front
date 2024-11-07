@@ -10,3 +10,6 @@ export * from "./Curso/CursoSchema";
 export * from "./CursoRecursoAcademico/CursoRecursoAcademicoSchema";
 export * from "./auth/LoginSchema";
 export * from "./Horario/HorarioSchema";
+export * from "./Docente/DocenteSchema";
+
+

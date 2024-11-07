@@ -1,4 +1,6 @@
 "use client";
+import AddDocenteModal from "@/components/dashboard/Docente/add-docente-modal";
+import DocenteTable from "@/components/dashboard/Docente/docente-table";
 import AddHistorialAcademicoModal from "@/components/dashboard/HistorialAcademico/add-historial-academico-modal";
 import { HistorialAcademicoTable } from "@/components/dashboard/HistorialAcademico/historial-academico-table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -29,7 +31,8 @@ export default function GestionAcademica() {
         <TabsContent value="docentes">
           <div className="mt-6">
             <h2 className="text-2xl font-bold mb-4">Docentes</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed</p>
+            <AddDocenteModal />
+            <DocenteTable />
           </div>
         </TabsContent>
         <TabsContent value="historialAcademico">

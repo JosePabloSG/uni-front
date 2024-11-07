@@ -55,3 +55,9 @@ export { default as useGetAllHorario } from "./Horario/queries/useGetAllHorario"
 export { default as useCreateHorario } from "./Horario/commands/useCreateHorario";
 export { default as useDeleteHorario } from "./Horario/commands/useDeleteHorario";
 export { default as useUpdateHorario } from "./Horario/commands/useUpdateHorario";
+
+export { default as useGetAllDocente } from "./Docente/queries/useGetAllDocente";
+export { default as useCreateDocente } from "./Docente/commands/useCreateDocente";
+export { default as useDeleteDocente } from "./Docente/commands/useDeleteDocente";
+export { default as useUpdateDocente } from "./Docente/commands/useUpdateDocente";
+

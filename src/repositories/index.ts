@@ -10,3 +10,6 @@ export { default as recursoAcademicoRepository } from "./RecursoAcademico/Recurs
 export { default as cursoRepository } from "./Curso/CursoRepository";
 export { default as cursoRecursoAcademicoRepository } from "./CursoRecursoAcademico/CursoRecursoAcademicoRepository";
 export { default as horarioRepository } from "./Horario/HorarioRepository";
+export { default as docenteRepository } from "./Docente/DocenteRepository";
+
+

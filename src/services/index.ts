@@ -48,6 +48,11 @@ export * from "./CursoRecursoAcademico/commands/deleteCursoRecursoAcademico";
 export * from "./CursoRecursoAcademico/commands/updateCursoRecursoAcademico";
 export * from "./CursoRecursoAcademico/queries/getAllCursoRecursoAcademico";
 
+export * from "./Docente/commands/createDocente";
+export * from "./Docente/commands/deleteDocente";
+export * from "./Docente/commands/updateDocente";
+export * from "./Docente/queries/getAllDocente";
+
 export * from "./HistorialCambio/queries/getHistorialCambio";
 
 

@@ -9,4 +9,5 @@ export * from "./RecursoAcademico/RecursoAcademicoSchema";
 export * from "./Curso/CursoSchema";
 export * from "./CursoRecursoAcademico/CursoRecursoAcademicoSchema";
 export * from "./auth/LoginSchema";
+export * from "./Docente/DocenteSchema";
 

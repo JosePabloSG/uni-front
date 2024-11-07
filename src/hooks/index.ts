@@ -51,6 +51,11 @@ export { default as useCreateCursoRecursoAcademico } from "./CursoRecursoAcademi
 export { default as useDeleteCursoRecursoAcademico } from "./CursoRecursoAcademico/commands/useDeleteCursoRecursoAcademico";  
 export { default as useUpdateCursoRecursoAcademico } from "./CursoRecursoAcademico/commands/useUpdateCursoRecursoAcademico";
 
+export { default as useGetAllHorario } from "./Horario/queries/useGetAllHorario";
+export { default as useCreateHorario } from "./Horario/commands/useCreateHorario";
+export { default as useDeleteHorario } from "./Horario/commands/useDeleteHorario";
+export { default as useUpdateHorario } from "./Horario/commands/useUpdateHorario";
+
 export { default as useGetAllDocente } from "./Docente/queries/useGetAllDocente";
 export { default as useCreateDocente } from "./Docente/commands/useCreateDocente";
 export { default as useDeleteDocente } from "./Docente/commands/useDeleteDocente";
@@ -60,3 +65,4 @@ export { default as useGetAllDocenteCurso } from "./DocenteCurso/queries/useGetA
 export { default as useCreateDocenteCurso } from "./DocenteCurso/commands/useCreateDocenteCurso";
 export { default as useDeleteDocenteCurso } from "./DocenteCurso/commands/useDeleteDocenteCurso";
 export { default as useUpdateDocenteCurso } from "./DocenteCurso/commands/useUpdateDocenteCurso";
+

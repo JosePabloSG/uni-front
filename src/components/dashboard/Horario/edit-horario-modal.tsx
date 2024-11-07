@@ -9,32 +9,30 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useUpdateCursoAula, useGetAllCurso, useGetAllAula } from "@/hooks";
-import { CursoAula } from "@/types";
+import { useUpdateHorario, useGetAllCurso } from "@/hooks";
+import { Horario } from "@/types";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+  } from "@/components/ui/select";
 
 interface Props {
-  cursoaula: CursoAula;
-  cursoaulaId: number;
+  horario: Horario;
+  horarioId?: number;
 }
 
-export default function EditCursoAulaModal({ cursoaulaId, cursoaula }: Props) {
+export default function EditHorarioModal({ horarioId = 0, horario }: Props) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const { register, errors, handleSubmit, onSubmit, setValue } = useUpdateCursoAula({
-    setIsOpen: setIsEditModalOpen,
-    cursoAulaId: cursoaulaId,
-  });
   const { cursos } = useGetAllCurso();
-  const { aula } = useGetAllAula();
-
+  const { register, errors, handleSubmit, onSubmit, setValue } = useUpdateHorario({
+    setIsOpen: setIsEditModalOpen,
+    horarioId: horarioId,
+  });
   return (
     <>
       <Button
@@ -48,27 +46,56 @@ export default function EditCursoAulaModal({ cursoaulaId, cursoaula }: Props) {
       <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Editar Aula</DialogTitle>
+            <DialogTitle>Editar Horario</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
-                <Label htmlFor="horarioClase"> Horario de Clase</Label>
+                <Label htmlFor="fechaInicio">Fecha Inicio</Label>
                 <Input
-                  defaultValue={cursoaula.horarioClase}
-                  id="horarioClase"
-                  {...register("horarioClase")}
+                  defaultValue={horario.fechaInicio}
+                  id="fechaInicio"
+                  type="datetime-local"
+                  {...register("fechaInicio")}
                 />
-                {errors.horarioClase && (
+                {errors.fechaInicio && (
                   <p className="text-red-500 text-xs">
-                    {errors.horarioClase.message}
+                    {errors.fechaInicio.message}
+                  </p>
+                )}
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="fechaFin">Fecha Fin</Label>
+                <Input
+                  defaultValue={horario.fechaFin}
+                  id="fechaFin"
+                  type="datetime-local"
+                  {...register("fechaFin")}
+                />
+                {errors.fechaFin && (
+                  <p className="text-red-500 text-xs">
+                    {errors.fechaFin.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <Label htmlFor="idDocente">ID Docente</Label>
+                <Input
+                  defaultValue={horario.idDocente}
+                  id="idDocente"
+                  type="number"
+                  {...register("idDocente")}
+                />
+                {errors.idDocente && (
+                  <p className="text-red-500 text-xs">
+                    {errors.idDocente.message}
                   </p>
                 )}
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="idCurso">Curso</Label>
                 <Select
-                  defaultValue={cursoaula.idCurso?.toString()}
+                  defaultValue={horario.idCurso?.toString()}
                   onValueChange={(value) =>
                     setValue("idCurso", Number(value))
                   }
@@ -91,35 +118,6 @@ export default function EditCursoAulaModal({ cursoaulaId, cursoaula }: Props) {
                 {errors.idCurso && (
                   <p className="text-red-500 text-xs">
                     {errors.idCurso.message}
-                  </p>
-                )}
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="idAula">Aula</Label>
-                <Select
-                  defaultValue={cursoaula.idAula?.toString()}
-                  onValueChange={(value) =>
-                    setValue("idAula", Number(value))
-                  }
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Seleccionar un aula" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {aula &&
-                      aula.map((aulas) => (
-                        <SelectItem
-                          key={aulas?.idAula}
-                          value={(aulas?.idAula ?? "").toString()}
-                        >
-                          {aulas?.codigoAula}
-                        </SelectItem>
-                      ))}
-                  </SelectContent>
-                </Select>
-                {errors.idAula && (
-                  <p className="text-red-500 text-xs">
-                    {errors.idAula.message}
                   </p>
                 )}
               </div>

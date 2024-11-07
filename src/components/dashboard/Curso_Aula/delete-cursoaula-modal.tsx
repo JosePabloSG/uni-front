@@ -36,7 +36,7 @@ export default function DeleteCursoAulaModal({ id }: Props) {
           <DialogHeader>
             <DialogTitle>Confirmar Eliminación</DialogTitle>
             <DialogDescription>
-              ¿Estás seguro de que quieres eliminar este departamento? Esta
+              ¿Estás seguro de que quieres eliminar este Curso Aula? Esta
               acción no se puede deshacer.
             </DialogDescription>
           </DialogHeader>

@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import ErrorModal from "@/components/ui/error-modal";
-import { useDeleteAula } from "@/hooks";
+import { useDeleteHorario } from "@/hooks";
 
 
 import { Trash2 } from "lucide-react";
@@ -17,7 +17,7 @@ interface Props {
   id?: number;
 }
 
-export default function DeleteAulaModal({ id= 0 }: Props) {
+export default function DeleteHorarioModal({ id= 0 }: Props) {
   const {
     handleDelete,
     isOpen,
@@ -25,7 +25,7 @@ export default function DeleteAulaModal({ id= 0 }: Props) {
     confirmDelete,
     errorMessage,
     closeErrorModal,
-  } = useDeleteAula({ itemId: id });
+  } = useDeleteHorario({ itemId: id });
   return (
     <>
       <Button variant="outline" size="icon" onClick={() => handleDelete()}>
@@ -36,7 +36,7 @@ export default function DeleteAulaModal({ id= 0 }: Props) {
           <DialogHeader>
             <DialogTitle>Confirmar Eliminación</DialogTitle>
             <DialogDescription>
-              ¿Estás seguro de que quieres eliminar esta aula? Esta
+              ¿Estás seguro de que quieres eliminar este horario? Esta
               acción no se puede deshacer.
             </DialogDescription>
           </DialogHeader>

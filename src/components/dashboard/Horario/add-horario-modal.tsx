@@ -8,11 +8,17 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { useCreateCursoAula, useGetAllCurso, useGetAllAula } from "@/hooks";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useCreateHorario, useGetAllCurso } from "@/hooks";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+  } from "@/components/ui/select";
+  
 
-
-export default function AddCursoAulaModal() {
+export default function AddHorarioModal() {
   const {
     register,
     onSubmit,
@@ -21,58 +27,45 @@ export default function AddCursoAulaModal() {
     isOpen,
     setIsOpen,
     errors,
-    setValue,
-  } = useCreateCursoAula();
+    setValue
+  } = useCreateHorario();
   const { cursos } = useGetAllCurso();
-  const { aula } = useGetAllAula();
-
   return (
     <>
       <Button onClick={handleAddNew} className="mb-4">
-        Agregar Curso Aula
+        Agregar Horario
       </Button>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Agregar Curso Aula</DialogTitle>
+            <DialogTitle>Agregar Horario</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className="grid gap-4 grid-cols-1 md:grid-cols-2 py-4">
               <div className="grid gap-2">
-                <Label htmlFor="horarioClase">Horario de clase</Label>
-                <Input id="horarioClase" {...register("horarioClase")} />
-                {errors.horarioClase && (
-                  <p className="text-red-500 text-xs">{errors.horarioClase.message}</p>
+                <Label htmlFor="fechaInicio">Fecha Inicio</Label>
+                <Input id="fechaInicio" type="datetime-local" {...register("fechaInicio")} />
+                {errors.fechaInicio && (
+                  <p className="text-red-500 text-xs">{errors.fechaInicio.message}</p>
                 )}
               </div>
+
               <div className="grid gap-2">
-                <Label htmlFor="idAula">Aula</Label>
-                <Select
-                  onValueChange={(value) =>
-                    setValue("idAula", Number(value))
-                  }
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Seleccionar un aula" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {aula &&
-                      aula.map((aulas) => (
-                        <SelectItem
-                          key={aulas?.idAula}
-                          value={(aulas?.idAula ?? "").toString()}
-                        >
-                          {aulas?.codigoAula}
-                        </SelectItem>
-                      ))}
-                  </SelectContent>
-                </Select>
-                {errors.idAula && (
-                  <p className="text-red-500 text-xs">
-                    {errors.idAula.message}
-                  </p>
+                <Label htmlFor="fechaFin">Fecha Fin</Label>
+                <Input id="fechaFin" type="datetime-local" {...register("fechaFin")} />
+                {errors.fechaFin && (
+                  <p className="text-red-500 text-xs">{errors.fechaFin.message}</p>
                 )}
               </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="idDocente">ID Docente</Label>
+                <Input id="idDocente" type="number" {...register("idDocente")} />
+                {errors.idDocente && (
+                  <p className="text-red-500 text-xs">{errors.idDocente.message}</p>
+                )}
+              </div>
+
               <div className="grid gap-2">
                 <Label htmlFor="idCurso">Curso</Label>
                 <Select
@@ -101,6 +94,7 @@ export default function AddCursoAulaModal() {
                   </p>
                 )}
               </div>
+              
               </div>
             <DialogFooter>
               <Button type="submit">Guardar Cambios</Button>

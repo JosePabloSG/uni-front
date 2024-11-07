@@ -18,78 +18,46 @@ import {
   Cell,
 } from "recharts";
 import { Users, BookOpen, School, Star } from "lucide-react";
-
-type Estudiante = {
-  Id_Estudiante: number;
-  Nombre: string;
-  Promedio: number;
-};
-
-type Docente = {
-  Id_Docente: number;
-  Nombre: string;
-  CargaHoraria: number;
-};
-
-type Curso = {
-  Id_Curso: number;
-  Nombre: string;
-  Inscripciones: number;
-};
-
-type Inscripcion = {
-  Id_Inscripcion: number;
-  Id_Curso: number;
-  Id_Estudiante: number;
-  Fecha: string;
-};
-
-type RecursoAcademico = {
-  Id_Recurso: number;
-  Nombre: string;
-  Uso: number;
-};
-
-type Evaluacion = {
-  Id_Evaluacion: number;
-  Id_Curso: number;
-  Calificacion: number;
-};
-
-// Datos de ejemplo (reemplazar con datos reales o fetch de API)
-const estudiantes: Estudiante[] = [
-  { Id_Estudiante: 1, Nombre: "Juan Pérez", Promedio: 8.5 },
-  { Id_Estudiante: 2, Nombre: "María González", Promedio: 9.2 },
-];
-
-const docentes: Docente[] = [
-  { Id_Docente: 1, Nombre: "Carlos Fernández", CargaHoraria: 20 },
-  { Id_Docente: 2, Nombre: "Ana Martínez", CargaHoraria: 15 },
-];
-
-const cursos: Curso[] = [
-  { Id_Curso: 1, Nombre: "Algoritmos", Inscripciones: 30 },
-  { Id_Curso: 2, Nombre: "Biología", Inscripciones: 25 },
-];
-
-const inscripciones: Inscripcion[] = [
-  { Id_Inscripcion: 1, Id_Curso: 1, Id_Estudiante: 1, Fecha: "2024-01-15" },
-  { Id_Inscripcion: 2, Id_Curso: 2, Id_Estudiante: 2, Fecha: "2024-01-20" },
-];
-
-const recursosAcademicos: RecursoAcademico[] = [
-  { Id_Recurso: 1, Nombre: "Aula 101", Uso: 80 },
-  { Id_Recurso: 2, Nombre: "Laboratorio A", Uso: 65 },
-];
-
-const evaluaciones: Evaluacion[] = [
-  { Id_Evaluacion: 1, Id_Curso: 1, Calificacion: 4.5 },
-  { Id_Evaluacion: 2, Id_Curso: 2, Calificacion: 4.2 },
-];
+import {
+  useGetAllDimEstudiante,
+  useGetAllHechosDesempeñoAcademico,
+  useGetAllDimDocente,
+  useGetAllHechosCargaDocente,
+  useGetAllHechosInscripcion,
+  useGetAllDimTiempo,
+  useGetAllDimCurso,
+  useGetAllHechosSatisfaccionEstudiantes,
+  useGetAllDimRecursoAcademico,
+  useGetAllHechosUsoRecurso,
+} from "@/hooks/warehouse/warehouse";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8"];
 
 export default function UniversidadDashboard() {
+  // Obtener datos usando los hooks
+  const { dimEstudiante } = useGetAllDimEstudiante();
+  const { hechosDesempeñoAcademico } = useGetAllHechosDesempeñoAcademico();
+  const { dimDocente } = useGetAllDimDocente();
+  const { hechosCargaDocente } = useGetAllHechosCargaDocente();
+  const { hechosInscripcion } = useGetAllHechosInscripcion();
+  const { dimTiempo } = useGetAllDimTiempo();
+  const { dimCurso } = useGetAllDimCurso();
+  const { hechosSatisfaccionEstudiantes } = useGetAllHechosSatisfaccionEstudiantes();
+  const { dimRecursoAcademico } = useGetAllDimRecursoAcademico();
+  const { hechosUsoRecurso } = useGetAllHechosUsoRecurso();
+
+  console.log('dimEstudiante:', dimEstudiante);
+  console.log('hechosDesempeñoAcademico:', hechosDesempeñoAcademico);
+  console.log('dimDocente:', dimDocente);
+  console.log('hechosCargaDocente:', hechosCargaDocente);
+  console.log('hechosInscripcion:', hechosInscripcion);
+  console.log('dimTiempo:', dimTiempo);
+  console.log('dimCurso:', dimCurso);
+  console.log('hechosSatisfaccionEstudiantes:', hechosSatisfaccionEstudiantes);
+  console.log('dimRecursoAcademico:', dimRecursoAcademico);
+  console.log('hechosUsoRecurso:', hechosUsoRecurso);
+
+  // Estados para los gráficos y totales
   const [desempenoAcademico, setDesempenoAcademico] = useState<
     { nombre: string; promedio: number }[]
   >([]);
@@ -105,46 +73,139 @@ export default function UniversidadDashboard() {
   const [satisfaccionEstudiantes, setSatisfaccionEstudiantes] = useState<
     { curso: string; calificacion: number }[]
   >([]);
+  const [totalEstudiantes, setTotalEstudiantes] = useState(0);
+  const [totalCursos, setTotalCursos] = useState(0);
+  const [promedioGeneral, setPromedioGeneral] = useState(0);
+  const [satisfaccionPromedio, setSatisfaccionPromedio] = useState(0);
 
   useEffect(() => {
-    // Calcular desempeño académico
-    setDesempenoAcademico(
-      estudiantes.map((e) => ({ nombre: e.Nombre, promedio: e.Promedio }))
-    );
+    // Verifica si los datos están cargados
+    if (
+      dimEstudiante &&
+      hechosDesempeñoAcademico &&
+      dimDocente &&
+      hechosCargaDocente &&
+      hechosInscripcion &&
+      dimTiempo &&
+      dimCurso &&
+      hechosSatisfaccionEstudiantes &&
+      dimRecursoAcademico &&
+      hechosUsoRecurso
+    ) {
+      // Desempeño Académico
+      const desempeñoData = dimEstudiante.map((estudiante) => {
+        const notasEstudiante = hechosDesempeñoAcademico.filter(
+          (hecho) => hecho.idEstudiante === estudiante.idEstudiante
+        );
+        const promedio =
+          notasEstudiante.reduce((acc, curr) => acc + (curr.nota || 0), 0) /
+          notasEstudiante.length;
 
-    // Calcular carga docente
-    setCargaDocente(
-      docentes.map((d) => ({ nombre: d.Nombre, carga: d.CargaHoraria }))
-    );
-
-    // Calcular uso de recursos
-    setUsoRecursos(
-      recursosAcademicos.map((r) => ({ nombre: r.Nombre, uso: r.Uso }))
-    );
-
-    // Calcular tendencia de inscripciones
-    const inscripcionesPorFecha = inscripciones.reduce((acc, ins) => {
-      acc[ins.Fecha] = (acc[ins.Fecha] || 0) + 1;
-      return acc;
-    }, {} as Record<string, number>);
-    setInscripcionesTendencia(
-      Object.entries(inscripcionesPorFecha).map(([fecha, cantidad]) => ({
-        fecha,
-        cantidad,
-      }))
-    );
-
-    // Calcular satisfacción de estudiantes
-    setSatisfaccionEstudiantes(
-      evaluaciones.map((e) => {
-        const curso = cursos.find((c) => c.Id_Curso === e.Id_Curso);
         return {
-          curso: curso?.Nombre || "Desconocido",
-          calificacion: e.Calificacion,
+          nombre: `${estudiante.nombre} ${estudiante.apellido1} ${estudiante.apellido2}`,
+          promedio: parseFloat(promedio.toFixed(2)) || 0,
         };
-      })
-    );
-  }, []);
+      });
+      setDesempenoAcademico(desempeñoData);
+
+      // Carga Docente
+      const cargaData = dimDocente.map((docente) => {
+        const cargasDocente = hechosCargaDocente.filter(
+          (hecho) => hecho.idDocente === docente.idDocente
+        );
+        const cargaHoraria = cargasDocente.reduce(
+          (acc, curr) => acc + (curr.horasSemana || 0),
+          0
+        );
+
+        return {
+          nombre: `${docente.nombre} ${docente.apellido1} ${docente.apellido2}`,
+          carga: cargaHoraria,
+        };
+      });
+      setCargaDocente(cargaData);
+
+      // Uso de Recursos
+      const recursosData = dimRecursoAcademico.map((recurso) => {
+        const usosRecurso = hechosUsoRecurso.filter(
+          (hecho) => hecho.idRecursoAcademico === recurso.idRecursoAcademico
+        );
+        const usoTotal = usosRecurso.reduce(
+          (acc, curr) => acc + (curr.cantidadUso || 0),
+          0
+        );
+
+        return {
+          nombre: recurso.tipo || "Desconocido",
+          uso: usoTotal,
+        };
+      });
+      setUsoRecursos(recursosData);
+
+      // Tendencia de Inscripciones
+      const inscripcionesPorFecha = hechosInscripcion.reduce((acc, inscripcion) => {
+        const fecha = dimTiempo.find(
+          (tiempo) => tiempo.idTiempo === inscripcion.idTiempo
+        )?.fecha;
+        if (fecha) {
+          acc[fecha] = (acc[fecha] || 0) + (inscripcion.cantidad || 0);
+        }
+        return acc;
+      }, {} as Record<string, number>);
+      const tendenciaData = Object.entries(inscripcionesPorFecha).map(
+        ([fecha, cantidad]) => ({
+          fecha,
+          cantidad,
+        })
+      );
+      setInscripcionesTendencia(tendenciaData);
+
+      // Satisfacción de Estudiantes
+      const satisfaccionData = hechosSatisfaccionEstudiantes.map((hecho) => {
+        const curso = dimCurso.find((c) => c.idCurso === hecho.idCurso);
+        return {
+          curso: curso?.nombre || "Desconocido",
+          calificacion: hecho.nivelSatisfaccion || 0,
+        };
+      });
+      setSatisfaccionEstudiantes(satisfaccionData);
+
+      // Total Estudiantes
+      setTotalEstudiantes(dimEstudiante.length);
+
+      // Total Cursos
+      setTotalCursos(dimCurso.length);
+
+      // Promedio General
+      const totalNotas = hechosDesempeñoAcademico.reduce(
+        (acc, curr) => acc + (curr.nota || 0),
+        0
+      );
+      const promedioGeneral =
+        totalNotas / hechosDesempeñoAcademico.length || 0;
+      setPromedioGeneral(parseFloat(promedioGeneral.toFixed(2)));
+
+      // Satisfacción Promedio
+      const totalSatisfaccion = hechosSatisfaccionEstudiantes.reduce(
+        (acc, curr) => acc + (curr.nivelSatisfaccion || 0),
+        0
+      );
+      const satisfaccionPromedio =
+        totalSatisfaccion / hechosSatisfaccionEstudiantes.length || 0;
+      setSatisfaccionPromedio(parseFloat(satisfaccionPromedio.toFixed(2)));
+    }
+  }, [
+    dimEstudiante,
+    hechosDesempeñoAcademico,
+    dimDocente,
+    hechosCargaDocente,
+    hechosInscripcion,
+    dimTiempo,
+    dimCurso,
+    hechosSatisfaccionEstudiantes,
+    dimRecursoAcademico,
+    hechosUsoRecurso,
+  ]);
 
   return (
     <div className="container mx-auto p-4">
@@ -281,7 +342,7 @@ export default function UniversidadDashboard() {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{estudiantes.length}</div>
+            <div className="text-2xl font-bold">{totalEstudiantes}</div>
           </CardContent>
         </Card>
         <Card>
@@ -290,7 +351,7 @@ export default function UniversidadDashboard() {
             <BookOpen className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{cursos.length}</div>
+            <div className="text-2xl font-bold">{totalCursos}</div>
           </CardContent>
         </Card>
         <Card>
@@ -301,12 +362,7 @@ export default function UniversidadDashboard() {
             <School className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              {(
-                estudiantes.reduce((acc, est) => acc + est.Promedio, 0) /
-                estudiantes.length
-              ).toFixed(2)}
-            </div>
+            <div className="text-2xl font-bold">{promedioGeneral}</div>
           </CardContent>
         </Card>
         <Card>
@@ -317,14 +373,7 @@ export default function UniversidadDashboard() {
             <Star className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              {(
-                evaluaciones.reduce(
-                  (acc, evaluacion) => acc + evaluacion.Calificacion,
-                  0
-                ) / evaluaciones.length
-              ).toFixed(2)}
-            </div>
+            <div className="text-2xl font-bold">{satisfaccionPromedio}</div>
           </CardContent>
         </Card>
       </div>

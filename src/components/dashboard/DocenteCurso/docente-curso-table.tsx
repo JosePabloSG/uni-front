@@ -44,10 +44,10 @@ export default function DocenteCursoTable() {
               </TableCell>
               <TableCell>
                 <EditDocenteCursoModal
-                  docenteCursoId={docenteCurso.idDocenteCurso}
+                  docenteCursoId={docenteCurso.idDocenteCurso!}
                   docenteCurso={docenteCurso}
                 />
-                <DeleteDocenteCursoModal id={docenteCurso.idDocenteCurso} />
+                <DeleteDocenteCursoModal id={docenteCurso.idDocenteCurso!} />
               </TableCell>
             </TableRow>
           ))}

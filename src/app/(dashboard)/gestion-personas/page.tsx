@@ -3,6 +3,8 @@ import AddDocenteModal from "@/components/dashboard/Docente/add-docente-modal";
 import DocenteTable from "@/components/dashboard/Docente/docente-table";
 import AddHistorialAcademicoModal from "@/components/dashboard/HistorialAcademico/add-historial-academico-modal";
 import { HistorialAcademicoTable } from "@/components/dashboard/HistorialAcademico/historial-academico-table";
+import AddInscripcionModal from "@/components/dashboard/Inscripcion/add-inscripcion-modal";
+import InscripcionTable from "@/components/dashboard/Inscripcion/inscripcion-table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function GestionAcademica() {
@@ -25,7 +27,8 @@ export default function GestionAcademica() {
         <TabsContent value="inscripciones">
           <div className="mt-6">
             <h2 className="text-2xl font-bold mb-4">Inscripciones</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed</p>
+            <AddInscripcionModal />
+            <InscripcionTable />
           </div>
         </TabsContent>
         <TabsContent value="docentes">

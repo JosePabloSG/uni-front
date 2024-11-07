@@ -11,4 +11,5 @@ export * from "./RecursoAcademico/RecursoAcademico";
 export * from "./Curso/curso";
 export * from "./CursoRecursoAcademico/cursoRecursoAcademico";
 export * from "./Docente/docente";
+export * from "./DocenteCurso/DocenteCurso";
 

@@ -10,4 +10,4 @@ export { default as recursoAcademicoRepository } from "./RecursoAcademico/Recurs
 export { default as cursoRepository } from "./Curso/CursoRepository";
 export { default as cursoRecursoAcademicoRepository } from "./CursoRecursoAcademico/CursoRecursoAcademicoRepository";
 export { default as docenteRepository } from "./Docente/DocenteRepository";
-
+export { default as docenteCursoRepository } from "./DocenteCurso/DocenteCursoRepository";

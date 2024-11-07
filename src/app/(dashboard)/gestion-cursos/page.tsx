@@ -5,6 +5,8 @@ import CursoAulaTable from "@/components/dashboard/Curso_Aula/cursoaula-table";
 import AddCursoModal from "@/components/dashboard/Curso/add-curso-modal";
 import CursoTable from "@/components/dashboard/Curso/curso-table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import DocenteCursoTable from "@/components/dashboard/DocenteCurso/docente-curso-table";
+import AddDocenteCursoModal from "@/components/dashboard/DocenteCurso/add-docente-curso-modal";
 
 export default function GestionCursos() {
   return (
@@ -25,7 +27,8 @@ export default function GestionCursos() {
         <TabsContent value="docentes-cursos">
           <div className="mt-6">
             <h2 className="text-2xl font-bold mb-4">Docentes Cursos</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed</p>
+            <AddDocenteCursoModal />
+            <DocenteCursoTable />
           </div>
         </TabsContent>
         <TabsContent value="cursos-aulas">

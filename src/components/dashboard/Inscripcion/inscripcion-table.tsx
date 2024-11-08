@@ -1,5 +1,9 @@
-import React from 'react';
-import { useGetAllInscripcion } from '@/hooks';
+import React from "react";
+import {
+  useGetAllCurso,
+  useGetAllEstudiante,
+  useGetAllInscripcion,
+} from "@/hooks";
 import {
   Table,
   TableBody,
@@ -7,15 +11,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import EditInscripcionModal from './edit-inscripcion-modal';
-import DeleteInscripcionModal from './delete-inscripcion-modal';
-
-
+} from "@/components/ui/table";
+import EditInscripcionModal from "./edit-inscripcion-modal";
+import DeleteInscripcionModal from "./delete-inscripcion-modal";
 
 export default function InscripcionTable() {
-  const { isLoading, isError, error, inscripcion } =
-    useGetAllInscripcion();
+  const { isLoading, isError, error, inscripcion } = useGetAllInscripcion();
+  const { cursos } = useGetAllCurso();
+  const { estudiante } = useGetAllEstudiante();
 
   if (isLoading) return <p>Cargando inscripciones...</p>;
   if (isError) return <p>Error: {error?.message}</p>;
@@ -28,8 +31,8 @@ export default function InscripcionTable() {
             <TableHead>ID</TableHead>
             <TableHead>Fecha de Inscripción</TableHead>
             <TableHead>Estado</TableHead>
-            <TableHead>ID Curso</TableHead>
-            <TableHead>ID Estudiante</TableHead>
+            <TableHead>Curso</TableHead>
+            <TableHead>Estudiante</TableHead>
             <TableHead>Acciones</TableHead>
           </TableRow>
         </TableHeader>
@@ -39,8 +42,8 @@ export default function InscripcionTable() {
               <TableCell>{inscripcion.idInscripcion}</TableCell>
               <TableCell>{inscripcion.fechaInscripcion}</TableCell>
               <TableCell>{inscripcion.estado}</TableCell>
-              <TableCell>{inscripcion.idCurso}</TableCell>
-              <TableCell>{inscripcion.idEstudiante}</TableCell>
+              <TableCell>{inscripcion.idCurso ? cursos?.find(c => c.idCurso === inscripcion.idCurso)?.nombre : inscripcion.idCurso}</TableCell>
+              <TableCell>{inscripcion.idEstudiante ? estudiante?.find(e => e.idEstudiante === inscripcion.idEstudiante)?.nombre + " " + estudiante?.find(e => e.idEstudiante === inscripcion.idEstudiante)?.apellido1 + " " + estudiante?.find(e => e.idEstudiante === inscripcion.idEstudiante)?.apellido2 : inscripcion.idEstudiante}</TableCell>
               <TableCell>
                 <EditInscripcionModal
                   inscripcionId={inscripcion.idInscripcion!}

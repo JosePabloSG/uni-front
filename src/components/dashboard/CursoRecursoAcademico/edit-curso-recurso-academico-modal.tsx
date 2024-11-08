@@ -7,11 +7,18 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import ErrorModal from "@/components/ui/error-modal";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useUpdateCursoRecursoAcademico from "@/hooks/CursoRecursoAcademico/commands/useUpdateCursoRecursoAcademico";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
+import { useGetAllCurso, useGetAllRecursosAcademicos } from "@/hooks";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface Props {
   cursoRecursoAcademico: any;
@@ -23,11 +30,19 @@ export default function EditCursoRecursoAcademicoModal({
   cursoRecursoAcademico,
 }: Props) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const { register, errors, handleSubmit, onSubmit, errorMessage, closeErrorModal } =
-    useUpdateCursoRecursoAcademico({
-      setIsOpen: setIsEditModalOpen,
-      cursoRecursoAcademicoId: cursoRecursoAcademicoId,
-    });
+  const {
+    errors,
+    handleSubmit,
+    onSubmit,
+    errorMessage,
+    setValue,
+    closeErrorModal,
+  } = useUpdateCursoRecursoAcademico({
+    setIsOpen: setIsEditModalOpen,
+    cursoRecursoAcademicoId: cursoRecursoAcademicoId,
+  });
+  const { cursos } = useGetAllCurso();
+  const { recursosAcademicos } = useGetAllRecursosAcademicos();
 
   return (
     <>
@@ -47,12 +62,26 @@ export default function EditCursoRecursoAcademicoModal({
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
-                <Label htmlFor="idCurso">ID Curso</Label>
-                <Input
-                  defaultValue={cursoRecursoAcademico.idCurso}
-                  id="idCurso"
-                  {...register("idCurso")}
-                />
+                <Label htmlFor="idCurso">Curso</Label>
+                <Select
+                  defaultValue={cursoRecursoAcademico.idCurso?.toString()}
+                  onValueChange={(value) => setValue("idCurso", Number(value))}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Seleccionar un curso" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {cursos &&
+                      cursos.map((curso) => (
+                        <SelectItem
+                          key={curso?.idCurso}
+                          value={(curso?.idCurso ?? "").toString()}
+                        >
+                          {curso?.nombre}
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
                 {errors.idCurso && (
                   <p className="text-red-500 text-xs">
                     {errors.idCurso.message}
@@ -60,19 +89,28 @@ export default function EditCursoRecursoAcademicoModal({
                 )}
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="idRecursoAcademico">
-                  ID Recurso Académico
-                </Label>
-                <Input
-                  defaultValue={cursoRecursoAcademico.idRecursoAcademico}
-                  id="idRecursoAcademico"
-                  {...register("idRecursoAcademico")}
-                />
-                {errors.idRecursoAcademico && (
-                  <p className="text-red-500 text-xs">
-                    {errors.idRecursoAcademico.message}
-                  </p>
-                )}
+                <Label htmlFor="idRecursoAcademico">Recurso Académico</Label>
+                <Select
+                  defaultValue={cursoRecursoAcademico.idRecursoAcademico?.toString()}
+                  onValueChange={(value) =>
+                    setValue("idRecursoAcademico", Number(value))
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Seleccionar un recurso académico" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {recursosAcademicos &&
+                      recursosAcademicos.map((recurso) => (
+                        <SelectItem
+                          key={recurso?.idRecursoAcademico}
+                          value={(recurso?.idRecursoAcademico ?? "").toString()}
+                        >
+                          {recurso?.tipo}
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
             <DialogFooter>

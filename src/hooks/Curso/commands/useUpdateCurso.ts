@@ -77,6 +77,6 @@ export const convertToFormData = (curso: any): UpdateCurso => {
     CodigoCurso: curso.CodigoCurso,
     Creditos: curso.Creditos,
     HorasSemana: curso.HorasSemana,
-    IdProgAcademico: curso.IdProgAcademico,
+    IdProgAcademico: 1,
   };
 };

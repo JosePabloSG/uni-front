@@ -95,19 +95,6 @@ export default function EditCursoModal({ cursoId, curso }: Props) {
                   </p>
                 )}
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="IdProgAcademico">ID Programa Académico</Label>
-                <Input
-                  defaultValue={curso.idProgAcademico}
-                  id="IdProgAcademico"
-                  {...register("IdProgAcademico")}
-                />
-                {errors.IdProgAcademico && (
-                  <p className="text-red-500 text-xs">
-                    {errors.IdProgAcademico.message}
-                  </p>
-                )}
-              </div>
             </div>
             <DialogFooter>
               <Button type="submit">Guardar Cambios</Button>

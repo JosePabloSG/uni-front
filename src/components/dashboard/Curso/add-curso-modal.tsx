@@ -77,19 +77,6 @@ export default function AddCursoModal() {
                   </p>
                 )}
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="IdProgAcademico">ID Programa Académico</Label>
-                <Input
-                  id="IdProgAcademico"
-                  type="number"
-                  {...register("IdProgAcademico")}
-                />
-                {errors.IdProgAcademico && (
-                  <p className="text-red-500 text-xs">
-                    {errors.IdProgAcademico.message}
-                  </p>
-                )}
-              </div>
             </div>
             <DialogFooter>
               <Button type="submit">Agregar</Button>

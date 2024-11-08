@@ -63,6 +63,8 @@ const useCreateHistorialAcademico = () => {
     formState: { errors },
     setError,
     handleAddNew,
+    errorMessage,
+    closeErrorModal,
     isOpen,
     setIsOpen,
     errors,

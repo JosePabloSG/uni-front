@@ -1,16 +1,16 @@
-import { createInscripcionSchema } from "@/schemas";
+import { createEstudianteSchema } from "@/schemas";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
-import { createInscripcion } from "@/services";
+import { createEstudiante } from "@/services";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CreateInscripcion } from "@/types";
+import { CreateEstudiante } from "@/types";
 
-type FormsFields = z.infer<typeof createInscripcionSchema>;
+type FormsFields = z.infer<typeof createEstudianteSchema>;
 
-const useCreateInscripcion = () => {
+const useCreateEstudiante = () => {
   const {
     register,
     handleSubmit,
@@ -18,7 +18,7 @@ const useCreateInscripcion = () => {
     formState: { errors },
     setError,
   } = useForm<FormsFields>({
-    resolver: zodResolver(createInscripcionSchema),
+    resolver: zodResolver(createEstudianteSchema),
   });
   const [isOpen, setIsOpen] = useState(false);
   const queryClient = useQueryClient();
@@ -28,10 +28,10 @@ const useCreateInscripcion = () => {
   };
 
   const mutation = useMutation({
-    mutationFn: (data: FormsFields) => createInscripcion(data),
+    mutationFn: (data: FormsFields) => createEstudiante(data),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["inscripcion"],
+        queryKey: ["estudiante"],
       });
     },
   });
@@ -60,11 +60,15 @@ const useCreateInscripcion = () => {
   };
 };
 
-export default useCreateInscripcion;
+export default useCreateEstudiante;
 
-export const convertToFormData = (inscripcion: any): CreateInscripcion => {
+export const convertToFormData = (estudiante: any): CreateEstudiante => {
   return {
-    idEstudiante: inscripcion.idEstudiante,
-    idCurso: inscripcion.idCurso,
+    nombre: estudiante.nombre,
+    apellido1: estudiante.apellido1,
+    apellido2: estudiante.apellido2,
+    email: estudiante.email,
+    telefono: estudiante.telefono,
+    direccion: estudiante.direccion,
   };
 };

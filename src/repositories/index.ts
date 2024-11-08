@@ -23,3 +23,4 @@ export { default as hechosDesempeñoAcademicoRepository } from "./warehouse/Hech
 export { default as hechosInscripcionRepository } from "./warehouse/HechosInscripcion/HechosInscripcionRepository"; 
 export { default as hechosSatisfaccionEstudiantesRepository } from "./warehouse/HechosSatisfaccionEstudiantes/HechosSatisfaccionEstudiantesRepository";
 export { default as hechosUsoRecursoRepository } from "./warehouse/HechosUsoRecurso/HechosUsoRecursoRepository";
+export { default as estudianteRepository } from "./Estudiante/EstudianteRepository";

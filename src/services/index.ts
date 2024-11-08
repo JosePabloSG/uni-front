@@ -63,4 +63,9 @@ export * from "./HistorialCambio/queries/getHistorialCambio";
 export * from "./Horario/commands/createHorario";
 export * from "./Horario/commands/deleteHorario";
 export * from "./Horario/commands/updateHorario";
-export * from "./Horario/queries/getAllHorario";    
+export * from "./Horario/queries/getAllHorario";  
+
+export * from "./Estudiante/commands/createEstudiante";
+export * from "./Estudiante/commands/deleteEstudiante";
+export * from "./Estudiante/commands/updateEstudiante";
+export * from "./Estudiante/queries/getAllEstudiante";

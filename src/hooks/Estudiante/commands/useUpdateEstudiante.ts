@@ -1,20 +1,20 @@
-import { updateInscripcionSchema } from "@/schemas";
 import { z } from "zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { updateInscripcion } from "@/services";
-import { Inscripcion, UpdateInscripcion } from "@/types";
+import { updateEstudianteSchema } from "@/schemas";
+import { updateEstudiante } from "@/services";
+import { UpdateEstudiante } from "@/types";
 
-type FormsFields = z.infer<typeof updateInscripcionSchema>;
+type FormsFields = z.infer<typeof updateEstudianteSchema>;
 
 interface Props {
   setIsOpen: (value: boolean) => void;
-  inscripcionId: number;
+  estudianteId: number;
 }
 
-const useUpdateInscripcion = ({ setIsOpen, inscripcionId }: Props) => {
+const useUpdateEstudiante = ({ setIsOpen, estudianteId }: Props) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const queryClient = useQueryClient();
   const {
@@ -24,14 +24,14 @@ const useUpdateInscripcion = ({ setIsOpen, inscripcionId }: Props) => {
     formState: { errors },
     setError,
   } = useForm<FormsFields>({
-    resolver: zodResolver(updateInscripcionSchema),
+    resolver: zodResolver(updateEstudianteSchema),
   });
 
   const mutation = useMutation({
-    mutationFn: (data: Inscripcion) => updateInscripcion(inscripcionId, data),
+    mutationFn: (data: UpdateEstudiante) => updateEstudiante(estudianteId, data),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["inscripcion"],
+        queryKey: ["estudiante"],
       });
     },
   });
@@ -42,7 +42,7 @@ const useUpdateInscripcion = ({ setIsOpen, inscripcionId }: Props) => {
       await mutation.mutateAsync(formData);
       setIsOpen(false);
     } catch (error) {
-      setIsOpen(false);
+      setErrorMessage("Error al actualizar el estudiante");
     }
   };
 
@@ -60,13 +60,15 @@ const useUpdateInscripcion = ({ setIsOpen, inscripcionId }: Props) => {
   };
 };
 
-export default useUpdateInscripcion;
+export default useUpdateEstudiante;
 
-
-export const convertToFormData = (inscripcion: any): UpdateInscripcion => {
+export const convertToFormData = (estudiante: any): UpdateEstudiante => {
   return {
-    idEstudiante: inscripcion.idEstudiante,
-    idCurso: inscripcion.idCurso,
-    nuevoEstado: inscripcion.nuevoEstado,
+    nombre: estudiante.nombre,
+    apellido1: estudiante.apellido1,
+    apellido2: estudiante.apellido2,
+    email: estudiante.email,
+    telefono: estudiante.telefono,
+    direccion: estudiante.direccion,
   };
 };

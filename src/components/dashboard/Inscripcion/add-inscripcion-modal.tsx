@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { useCreateInscripcion, useGetAllCurso } from "@/hooks";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
+
 export default function AddInscripcionModal() {
   const {
     onSubmit,
@@ -90,28 +91,6 @@ export default function AddInscripcionModal() {
                   </p>
                 )}
               </div> */}
-
-              <div className="grid gap-2">
-                <Label htmlFor="estado">Estado</Label>
-                <Select
-                  onValueChange={(value) =>
-                    setValue("estado", value)
-                  }
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Seleccionar un estado" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Activo">Activo</SelectItem>
-                    <SelectItem value="Inactivo">Inactivo</SelectItem>
-                  </SelectContent>
-                </Select>
-                {errors.estado && (
-                  <p className="text-red-500 text-xs">
-                    {errors.estado.message}
-                  </p>
-                )}
-              </div>
             </div>
             <DialogFooter className="mt-4">
               <Button type="submit">Guardar Cambios</Button>

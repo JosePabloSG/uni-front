@@ -1,6 +1,8 @@
 "use client";
 import AddDocenteModal from "@/components/dashboard/Docente/add-docente-modal";
 import DocenteTable from "@/components/dashboard/Docente/docente-table";
+import AddEstudianteModal from "@/components/dashboard/Estudiante/add-estudiante-modal";
+import EstudianteTable from "@/components/dashboard/Estudiante/estudiante-table";
 import AddHistorialAcademicoModal from "@/components/dashboard/HistorialAcademico/add-historial-academico-modal";
 import { HistorialAcademicoTable } from "@/components/dashboard/HistorialAcademico/historial-academico-table";
 import AddInscripcionModal from "@/components/dashboard/Inscripcion/add-inscripcion-modal";
@@ -12,16 +14,19 @@ export default function GestionAcademica() {
     <div className="container mx-auto py-10">
       <h1 className="text-3xl font-bold mb-6">Configuración del Sistema</h1>
       <Tabs defaultValue="estudiantes">
-      <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="estudiantes">Estudiantes</TabsTrigger>
           <TabsTrigger value="docentes">Docentes</TabsTrigger>
           <TabsTrigger value="inscripciones">Inscripciones</TabsTrigger>
-          <TabsTrigger value="historialAcademico">Historial Academico </TabsTrigger>
+          <TabsTrigger value="historialAcademico">
+            Historial Academico{" "}
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="estudiantes">
           <div className="mt-6">
             <h2 className="text-2xl font-bold mb-4">Estudiantes</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed</p>
+            <AddEstudianteModal />
+            <EstudianteTable />
           </div>
         </TabsContent>
         <TabsContent value="inscripciones">

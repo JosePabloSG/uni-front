@@ -5,6 +5,8 @@ export interface Aula {
   ubicacion: string;
   equipamiento: string;
   cursoaula?: string[];
+  IdUsuario: number; // Agrega esta propiedad - NUEVO
+
 }
 
 export interface CreateAula { 
@@ -13,6 +15,8 @@ export interface CreateAula {
   capacidad: number;
   ubicacion: string;
   equipamiento: string;
+  IdUsuario: number; // Agrega esta propiedad - NUEVO
+
 }
 
 export interface UpdateAula {

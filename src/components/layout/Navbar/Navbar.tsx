@@ -1,15 +1,18 @@
 'use client'
 
+import { useSession } from 'next-auth/react';
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { User, ChevronDown } from 'lucide-react';
 
 export default function Navbar() {
+  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const dropdownRef = useRef<HTMLDivElement>(null); // Especifica el tipo de elemento HTML
+
 
   useEffect(() => {
-    function handleClickOutside(event: { target: any; }) {
+    function handleClickOutside(event: { target: any }) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
       }
@@ -44,6 +47,10 @@ export default function Navbar() {
             </button>
             {isOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                <span className="block px-4 py-2 text-sm text-gray-700">
+                  {session?.user ? `${session.user.name} ${session.user.surname1}` : 'Usuario desconocido'}
+                  {session?.user ? `${session.user.name} ${session.user.employeeId}` : 'ID desconocido'}
+                </span>
                 <Link 
                   href="/perfil" 
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

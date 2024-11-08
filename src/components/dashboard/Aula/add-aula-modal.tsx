@@ -9,10 +9,13 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useCreateAula } from "@/hooks";
-import ErrorModal from "@/components/ui/error-modal";
+import { useSession } from "next-auth/react"; // Importa useSession
+
 
 
 export default function AddAulaModal() {
+  const { data: session } = useSession();
+  const idUsuario = Number(session?.user?.employeeId) || 0; // Define un valor predeterminado para evitar `undefined`
   const {
     register,
     onSubmit,
@@ -21,10 +24,13 @@ export default function AddAulaModal() {
     isOpen,
     setIsOpen,
     errors,
-    errorMessage,
-    closeErrorModal,
-  } = useCreateAula();
+    responseMessage,
+    setResponseMessage,
+  } = useCreateAula(idUsuario);
 
+  const handleCloseMessage = () => {
+    setResponseMessage(null); // Limpia el mensaje de respuesta al cerrar el modal
+  };
   return (
     <>
       <Button onClick={handleAddNew} className="mb-4">
@@ -76,12 +82,19 @@ export default function AddAulaModal() {
           </form>
         </DialogContent>
       </Dialog>
-      {errorMessage && (
-        <ErrorModal
-          isOpen={!!errorMessage}
-          onClose={closeErrorModal}
-          message={errorMessage}
-        />
+ {/* Modal de Mensaje */}
+ {responseMessage && (
+        <Dialog open={!!responseMessage} onOpenChange={handleCloseMessage}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Resultado de la Operación</DialogTitle>
+            </DialogHeader>
+            <p>{responseMessage}</p>
+            <DialogFooter>
+              <Button onClick={handleCloseMessage}>Cerrar</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       )}
     </>
   );

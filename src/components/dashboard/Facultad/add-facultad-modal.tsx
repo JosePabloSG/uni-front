@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import ErrorModal from "@/components/ui/error-modal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useCreateFacultad from "@/hooks/Facultad/commands/useCreateFacultad";
@@ -20,6 +21,8 @@ export default function AddFacultadModal() {
     isOpen,
     setIsOpen,
     errors,
+    errorMessage,
+    closeErrorModal,
   } = useCreateFacultad();
 
   return (
@@ -53,6 +56,13 @@ export default function AddFacultadModal() {
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   ) 
 }

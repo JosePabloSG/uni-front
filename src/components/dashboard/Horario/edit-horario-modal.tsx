@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useUpdateHorario, useGetAllCurso } from "@/hooks";
+import { useUpdateHorario, useGetAllCurso, useGetAllDocente } from "@/hooks";
 import { Horario } from "@/types";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
@@ -20,6 +20,7 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select";
+import ErrorModal from "@/components/ui/error-modal";
 
 interface Props {
   horario: Horario;
@@ -29,7 +30,8 @@ interface Props {
 export default function EditHorarioModal({ horarioId = 0, horario }: Props) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { cursos } = useGetAllCurso();
-  const { register, errors, handleSubmit, onSubmit, setValue } = useUpdateHorario({
+  const { docente } = useGetAllDocente();
+  const { register, errors, handleSubmit, onSubmit, setValue, errorMessage, closeErrorModal } = useUpdateHorario({
     setIsOpen: setIsEditModalOpen,
     horarioId: horarioId,
   });
@@ -78,14 +80,29 @@ export default function EditHorarioModal({ horarioId = 0, horario }: Props) {
                   </p>
                 )}
               </div>
-              <div>
-                <Label htmlFor="idDocente">ID Docente</Label>
-                <Input
-                  defaultValue={horario.idDocente}
-                  id="idDocente"
-                  type="number"
-                  {...register("idDocente")}
-                />
+              <div className="grid gap-2">
+                <Label htmlFor="idDocente">Docente</Label>
+                <Select
+                  defaultValue={horario.idDocente?.toString()}
+                  onValueChange={(value) =>
+                    setValue("idDocente", Number(value))
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Seleccionar un docente" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {docente &&
+                      docente.map((docente) => (
+                        <SelectItem
+                          key={docente?.idDocente}
+                          value={(docente?.idDocente ?? "").toString()}
+                        >
+                          {docente?.nombreCompletoDocente}
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
                 {errors.idDocente && (
                   <p className="text-red-500 text-xs">
                     {errors.idDocente.message}
@@ -128,6 +145,13 @@ export default function EditHorarioModal({ horarioId = 0, horario }: Props) {
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

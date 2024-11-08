@@ -38,6 +38,9 @@ const useUpdateProgramaAcademico = ({
         queryKey: ["programaAcademico"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -50,9 +53,14 @@ const useUpdateProgramaAcademico = ({
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     setIsOpen,
     errorMessage,
+    closeErrorModal,
     handleSubmit,
     setValue,
     setErrorMessage,

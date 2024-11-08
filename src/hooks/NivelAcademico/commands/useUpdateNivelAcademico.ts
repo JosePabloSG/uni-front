@@ -34,6 +34,9 @@ const useUpdateNivelAcademico = ({ setIsOpen, nivelId }: Props) => {
         queryKey: ["nivelAcademicos"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -46,10 +49,15 @@ const useUpdateNivelAcademico = ({ setIsOpen, nivelId }: Props) => {
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     setIsOpen,
     errorMessage,
     handleSubmit,
+    closeErrorModal,
     setValue,
     setErrorMessage,
     onSubmit,
@@ -57,6 +65,7 @@ const useUpdateNivelAcademico = ({ setIsOpen, nivelId }: Props) => {
     mutation,
     errors,
     setError,
+
   };
 };
 

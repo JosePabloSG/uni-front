@@ -53,6 +53,10 @@ const useCreateAula = (idUsuario: number) => {
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     register,
     handleSubmit,
@@ -62,6 +66,8 @@ const useCreateAula = (idUsuario: number) => {
     handleAddNew,
     isOpen,
     setIsOpen,
+    closeErrorModal,
+    errorMessage,
     errors,
     responseMessage, // Retorna el mensaje de respuesta
     setResponseMessage, // Para limpiar el mensaje desde el componente principal

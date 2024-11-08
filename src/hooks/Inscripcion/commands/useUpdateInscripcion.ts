@@ -5,7 +5,7 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateInscripcion } from "@/services";
-import { Inscripcion } from "@/types";
+import { Inscripcion, UpdateInscripcion } from "@/types";
 
 type FormsFields = z.infer<typeof updateInscripcionSchema>;
 
@@ -34,6 +34,9 @@ const useUpdateInscripcion = ({ setIsOpen, inscripcionId }: Props) => {
         queryKey: ["inscripcion"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -46,6 +49,10 @@ const useUpdateInscripcion = ({ setIsOpen, inscripcionId }: Props) => {
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     setIsOpen,
     errorMessage,
@@ -55,6 +62,7 @@ const useUpdateInscripcion = ({ setIsOpen, inscripcionId }: Props) => {
     onSubmit,
     register,
     mutation,
+    closeErrorModal,
     errors,
     setError,
   };
@@ -62,12 +70,11 @@ const useUpdateInscripcion = ({ setIsOpen, inscripcionId }: Props) => {
 
 export default useUpdateInscripcion;
 
-export const convertToFormData = (inscripcion: any): Inscripcion => {
+
+export const convertToFormData = (inscripcion: any): UpdateInscripcion => {
   return {
-    idInscripcion: inscripcion.idInscripcion,
-    fechaInscripcion: inscripcion.fechaInscripcion,
-    estado: inscripcion.estado,
-    idCurso: inscripcion.idCurso,
     idEstudiante: inscripcion.idEstudiante,
+    idCurso: inscripcion.idCurso,
+    nuevoEstado: inscripcion.nuevoEstado,
   };
 };

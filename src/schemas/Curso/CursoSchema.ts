@@ -5,7 +5,6 @@ export const createCursoSchema = z.object({
   CodigoCurso: z.string(),
   Creditos: z.preprocess((value) => Number(value), z.number().min(1).max(100)),
   HorasSemana: z.preprocess((value) => Number(value), z.number().min(1).max(100)),
-  IdProgAcademico: z.preprocess((value) => Number(value), z.number().min(1).max(100)),
 });
 
 export const updateCursoSchema = z.object({
@@ -13,5 +12,4 @@ export const updateCursoSchema = z.object({
   CodigoCurso: z.string().optional(),
   Creditos: z.preprocess((value) => Number(value), z.number().min(1).max(100)).optional(),
   HorasSemana: z.preprocess((value) => Number(value), z.number().min(1).max(100)).optional(),
-  IdProgAcademico: z.preprocess((value) => Number(value), z.number().min(1).max(100)).optional(),
 });

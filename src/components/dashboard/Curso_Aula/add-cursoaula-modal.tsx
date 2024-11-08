@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useCreateCursoAula, useGetAllCurso, useGetAllAula } from "@/hooks";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import ErrorModal from "@/components/ui/error-modal";
 
 
 export default function AddCursoAulaModal() {
@@ -22,6 +23,8 @@ export default function AddCursoAulaModal() {
     setIsOpen,
     errors,
     setValue,
+    errorMessage,
+    closeErrorModal,
   } = useCreateCursoAula();
   const { cursos } = useGetAllCurso();
   const { aula } = useGetAllAula();
@@ -108,6 +111,13 @@ export default function AddCursoAulaModal() {
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

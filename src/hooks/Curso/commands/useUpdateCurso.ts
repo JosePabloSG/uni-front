@@ -34,6 +34,9 @@ const useUpdateCurso = ({ setIsOpen, cursoId }: Props) => {
         queryKey: ["cursos"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -46,6 +49,10 @@ const useUpdateCurso = ({ setIsOpen, cursoId }: Props) => {
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     setIsOpen,
     errorMessage,
@@ -54,6 +61,7 @@ const useUpdateCurso = ({ setIsOpen, cursoId }: Props) => {
     setErrorMessage,
     onSubmit,
     register,
+    closeErrorModal,
     mutation,
     errors,
     setError,
@@ -69,6 +77,6 @@ export const convertToFormData = (curso: any): UpdateCurso => {
     CodigoCurso: curso.CodigoCurso,
     Creditos: curso.Creditos,
     HorasSemana: curso.HorasSemana,
-    IdProgAcademico: curso.IdProgAcademico,
+    IdProgAcademico: 1,
   };
 };

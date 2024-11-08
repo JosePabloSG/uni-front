@@ -21,6 +21,7 @@ const useCreateRecursoAcademico = () => {
     resolver: zodResolver(createRecursoAcademicoSchema),
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   const handleAddNew = () => {
@@ -34,6 +35,9 @@ const useCreateRecursoAcademico = () => {
         queryKey: ["recursosAcademicos"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -46,6 +50,10 @@ const useCreateRecursoAcademico = () => {
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     register,
     handleSubmit,
@@ -54,6 +62,8 @@ const useCreateRecursoAcademico = () => {
     setError,
     handleAddNew,
     isOpen,
+    closeErrorModal,
+    errorMessage,
     setIsOpen,
     errors,
     onSubmit,

@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import ErrorModal from "@/components/ui/error-modal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useUpdateCurso from "@/hooks/Curso/commands/useUpdateCurso";
@@ -19,12 +20,11 @@ interface Props {
 
 export default function EditCursoModal({ cursoId, curso }: Props) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const { register, errors, handleSubmit, onSubmit } =
+  const { register, errors, handleSubmit, onSubmit, errorMessage, closeErrorModal } =
     useUpdateCurso({
       setIsOpen: setIsEditModalOpen,
       cursoId: cursoId,
     });
-
 
   return (
     <>
@@ -95,19 +95,6 @@ export default function EditCursoModal({ cursoId, curso }: Props) {
                   </p>
                 )}
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="IdProgAcademico">ID Programa Académico</Label>
-                <Input
-                  defaultValue={curso.idProgAcademico}
-                  id="IdProgAcademico"
-                  {...register("IdProgAcademico")}
-                />
-                {errors.IdProgAcademico && (
-                  <p className="text-red-500 text-xs">
-                    {errors.IdProgAcademico.message}
-                  </p>
-                )}
-              </div>
             </div>
             <DialogFooter>
               <Button type="submit">Guardar Cambios</Button>
@@ -115,7 +102,13 @@ export default function EditCursoModal({ cursoId, curso }: Props) {
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }
-

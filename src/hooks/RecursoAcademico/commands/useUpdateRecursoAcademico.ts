@@ -34,6 +34,9 @@ const useUpdateRecursoAcademico = ({ setIsOpen, recursoAcademicoId }: Props) => 
         queryKey: ["recursosAcademicos"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -46,6 +49,10 @@ const useUpdateRecursoAcademico = ({ setIsOpen, recursoAcademicoId }: Props) => 
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     setIsOpen,
     errorMessage,
@@ -54,6 +61,7 @@ const useUpdateRecursoAcademico = ({ setIsOpen, recursoAcademicoId }: Props) => 
     setErrorMessage,
     onSubmit,
     register,
+    closeErrorModal,
     mutation,
     errors,
     setError,

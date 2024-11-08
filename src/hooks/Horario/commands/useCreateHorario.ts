@@ -21,6 +21,7 @@ const useCreateHorario = () => {
     resolver: zodResolver(createHorarioSchema),
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   const handleAddNew = () => {
@@ -34,6 +35,9 @@ const useCreateHorario = () => {
         queryKey: ["Horario"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -46,6 +50,10 @@ const useCreateHorario = () => {
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     register,
     handleSubmit,
@@ -53,6 +61,8 @@ const useCreateHorario = () => {
     formState: { errors },
     setError,
     handleAddNew,
+    closeErrorModal,
+    errorMessage,
     isOpen,
     setIsOpen,
     errors,

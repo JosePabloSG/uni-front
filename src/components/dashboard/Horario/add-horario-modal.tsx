@@ -8,15 +8,16 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { useCreateHorario, useGetAllCurso } from "@/hooks";
+import { useCreateHorario, useGetAllCurso, useGetAllDocente } from "@/hooks";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-  } from "@/components/ui/select";
-  
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import ErrorModal from "@/components/ui/error-modal";
+
 
 export default function AddHorarioModal() {
   const {
@@ -27,9 +28,12 @@ export default function AddHorarioModal() {
     isOpen,
     setIsOpen,
     errors,
-    setValue
+    setValue,
+    errorMessage,
+    closeErrorModal,
   } = useCreateHorario();
   const { cursos } = useGetAllCurso();
+  const { docente } = useGetAllDocente();
   return (
     <>
       <Button onClick={handleAddNew} className="mb-4">
@@ -44,34 +48,64 @@ export default function AddHorarioModal() {
             <div className="grid gap-4 grid-cols-1 md:grid-cols-2 py-4">
               <div className="grid gap-2">
                 <Label htmlFor="fechaInicio">Fecha Inicio</Label>
-                <Input id="fechaInicio" type="datetime-local" {...register("fechaInicio")} />
+                <Input
+                  id="fechaInicio"
+                  type="datetime-local"
+                  {...register("fechaInicio")}
+                />
                 {errors.fechaInicio && (
-                  <p className="text-red-500 text-xs">{errors.fechaInicio.message}</p>
+                  <p className="text-red-500 text-xs">
+                    {errors.fechaInicio.message}
+                  </p>
                 )}
               </div>
 
               <div className="grid gap-2">
                 <Label htmlFor="fechaFin">Fecha Fin</Label>
-                <Input id="fechaFin" type="datetime-local" {...register("fechaFin")} />
+                <Input
+                  id="fechaFin"
+                  type="datetime-local"
+                  {...register("fechaFin")}
+                />
                 {errors.fechaFin && (
-                  <p className="text-red-500 text-xs">{errors.fechaFin.message}</p>
+                  <p className="text-red-500 text-xs">
+                    {errors.fechaFin.message}
+                  </p>
                 )}
               </div>
-
               <div className="grid gap-2">
-                <Label htmlFor="idDocente">ID Docente</Label>
-                <Input id="idDocente" type="number" {...register("idDocente")} />
+                <Label htmlFor="idDocente">Docente</Label>
+                <Select
+                  onValueChange={(value) =>
+                    setValue("idDocente", Number(value))
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Seleccionar un docente" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {docente &&
+                      docente.map((docente) => (
+                        <SelectItem
+                          key={docente?.idDocente}
+                          value={(docente?.idDocente ?? "").toString()}
+                        >
+                          {docente?.nombreCompletoDocente}
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
                 {errors.idDocente && (
-                  <p className="text-red-500 text-xs">{errors.idDocente.message}</p>
+                  <p className="text-red-500 text-xs">
+                    {errors.idDocente.message}
+                  </p>
                 )}
               </div>
 
               <div className="grid gap-2">
                 <Label htmlFor="idCurso">Curso</Label>
                 <Select
-                  onValueChange={(value) =>
-                    setValue("idCurso", Number(value))
-                  }
+                  onValueChange={(value) => setValue("idCurso", Number(value))}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Seleccionar un curso" />
@@ -94,14 +128,20 @@ export default function AddHorarioModal() {
                   </p>
                 )}
               </div>
-              
-              </div>
+            </div>
             <DialogFooter>
               <Button type="submit">Guardar Cambios</Button>
             </DialogFooter>
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

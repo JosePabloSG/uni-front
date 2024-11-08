@@ -66,3 +66,8 @@ export { default as useCreateDocenteCurso } from "./DocenteCurso/commands/useCre
 export { default as useDeleteDocenteCurso } from "./DocenteCurso/commands/useDeleteDocenteCurso";
 export { default as useUpdateDocenteCurso } from "./DocenteCurso/commands/useUpdateDocenteCurso";
 
+export { default as useGetAllEstudiante } from "./Estudiante/queries/useGetAllEstudiante";
+export { default as useCreateEstudiante } from "./Estudiante/commands/useCreateEstudiante";
+export { default as useDeleteEstudiante } from "./Estudiante/commands/useDeleteEstudiante";
+export { default as useUpdateEstudiante } from "./Estudiante/commands/useUpdateEstudiante";
+

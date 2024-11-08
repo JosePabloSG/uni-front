@@ -1,4 +1,4 @@
-import { useGetAllCursoAula } from "@/hooks";
+import { useGetAllAula, useGetAllCurso, useGetAllCursoAula } from "@/hooks";
 import {
   Table,
   TableBody,
@@ -10,13 +10,22 @@ import {
 
 import DeleteCursoAulaModal from "./delete-cursoaula-modal";
 import EditCursoAulaModal from "./edit-cursoaula-modal";
+import { format } from "@formkit/tempo";
 
 
 
 export default function CursoAulaTable() {
   const {  isLoading, isError, error, cursoaula  } =
   useGetAllCursoAula();
+  const { cursos } = useGetAllCurso();
+  const { aula } = useGetAllAula();
 
+  const formatDate = (dateString: string) =>
+    format({
+      date: new Date(dateString),
+      format: "D MMMM YYYY HH:mm:ss", // Incluye hora, minutos y segundos
+      locale: "es",
+    });
  
 
   if (isLoading) return <p>Cargando niveles académicos...</p>;
@@ -38,9 +47,9 @@ export default function CursoAulaTable() {
           {cursoaula?.map((cursoaula) => (
             <TableRow key={cursoaula.idCursoAula}>
               <TableCell>{cursoaula.idCursoAula}</TableCell>
-              <TableCell>{cursoaula.horarioClase}</TableCell>
-              <TableCell>{cursoaula.idCurso}</TableCell>
-              <TableCell>{cursoaula.idAula}</TableCell>
+              <TableCell>{formatDate(cursoaula.horarioClase)}</TableCell>
+              <TableCell>{cursoaula.idCurso ? cursos?.find(c => c.idCurso === cursoaula.idCurso)?.nombre : cursoaula.idCurso}</TableCell>
+              <TableCell>{cursoaula.idAula ? aula?.find(a => a.idAula === cursoaula.idAula)?.codigoAula : cursoaula.idAula}</TableCell>
               <TableCell>
                 <EditCursoAulaModal
                   cursoaulaId={cursoaula.idAula}

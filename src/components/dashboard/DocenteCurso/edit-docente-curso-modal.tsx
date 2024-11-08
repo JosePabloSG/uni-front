@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import ErrorModal from "@/components/ui/error-modal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useUpdateDocenteCurso } from "@/hooks";
@@ -23,7 +24,7 @@ export default function EditDocenteCursoModal({
   docenteCurso,
 }: Props) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const { register, errors, handleSubmit, onSubmit } = useUpdateDocenteCurso({
+  const { register, errors, handleSubmit, onSubmit, errorMessage, closeErrorModal } = useUpdateDocenteCurso({
     setIsOpen: setIsEditModalOpen,
     docenteCursoId: docenteCursoId,
   });
@@ -79,6 +80,13 @@ export default function EditDocenteCursoModal({
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

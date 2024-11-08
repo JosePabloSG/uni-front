@@ -6,12 +6,23 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useGetAllCurso, useUpdateInscripcion } from "@/hooks";
+import {
+  useGetAllCurso,
+  useGetAllEstudiante,
+  useUpdateInscripcion,
+} from "@/hooks";
 import { Inscripcion } from "@/types";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import ErrorModal from "@/components/ui/error-modal";
 
 interface Props {
   inscripcion: Inscripcion;
@@ -23,11 +34,19 @@ export default function EditInscripcionModal({
   inscripcion,
 }: Props) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const { handleSubmit, onSubmit,errors, setValue } = useUpdateInscripcion({
+  const {
+    handleSubmit,
+    onSubmit,
+    errors,
+    setValue,
+    errorMessage,
+    closeErrorModal,
+  } = useUpdateInscripcion({
     setIsOpen: setIsEditModalOpen,
     inscripcionId: inscripcionId,
   });
   const { cursos } = useGetAllCurso();
+  const { estudiante } = useGetAllEstudiante();
 
   return (
     <>
@@ -50,9 +69,7 @@ export default function EditInscripcionModal({
                 <Label htmlFor="idCurso">Curso</Label>
                 <Select
                   defaultValue={inscripcion.idCurso?.toString()}
-                  onValueChange={(value) =>
-                    setValue("idCurso", Number(value))
-                  }
+                  onValueChange={(value) => setValue("idCurso", Number(value))}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Seleccionar un curso" />
@@ -75,6 +92,39 @@ export default function EditInscripcionModal({
                   </p>
                 )}
               </div>
+              <div className="grid gap-2">
+                <Label htmlFor="idEstudiante">Estudiante</Label>
+                <Select
+                  defaultValue={inscripcion.idEstudiante?.toString()}
+                  onValueChange={(value) =>
+                    setValue("idEstudiante", Number(value))
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Seleccionar un estudiante" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {estudiante &&
+                      estudiante.map((estudiante) => (
+                        <SelectItem
+                          key={estudiante?.idEstudiante}
+                          value={(estudiante?.idEstudiante ?? "").toString()}
+                        >
+                          {estudiante?.nombre +
+                            " " +
+                            estudiante?.apellido1 +
+                            " " +
+                            estudiante?.apellido2}
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
+                {errors.idEstudiante && (
+                  <p className="text-red-500 text-xs">
+                    {errors.idEstudiante.message}
+                  </p>
+                )}
+              </div>
             </div>
             <DialogFooter className="mt-4">
               <Button type="submit">Guardar Cambios</Button>
@@ -82,6 +132,13 @@ export default function EditInscripcionModal({
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

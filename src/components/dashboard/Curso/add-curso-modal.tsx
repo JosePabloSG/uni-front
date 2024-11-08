@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import useCreateCurso from "@/hooks/Curso/commands/useCreateCurso";
 import { Plus } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import ErrorModal from "@/components/ui/error-modal";
 
 export default function AddCursoModal() {
   const {
@@ -20,6 +21,8 @@ export default function AddCursoModal() {
     isOpen,
     setIsOpen,
     errors,
+    errorMessage,
+    closeErrorModal,
   } = useCreateCurso();
 
   return (
@@ -74,19 +77,6 @@ export default function AddCursoModal() {
                   </p>
                 )}
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="IdProgAcademico">ID Programa Académico</Label>
-                <Input
-                  id="IdProgAcademico"
-                  type="number"
-                  {...register("IdProgAcademico")}
-                />
-                {errors.IdProgAcademico && (
-                  <p className="text-red-500 text-xs">
-                    {errors.IdProgAcademico.message}
-                  </p>
-                )}
-              </div>
             </div>
             <DialogFooter>
               <Button type="submit">Agregar</Button>
@@ -94,6 +84,13 @@ export default function AddCursoModal() {
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

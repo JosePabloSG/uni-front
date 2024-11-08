@@ -21,6 +21,7 @@ const useCreateInscripcion = () => {
     resolver: zodResolver(createInscripcionSchema),
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   const handleAddNew = () => {
@@ -34,6 +35,9 @@ const useCreateInscripcion = () => {
         queryKey: ["inscripcion"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -46,10 +50,16 @@ const useCreateInscripcion = () => {
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     register,
     handleSubmit,
     setValue,
+    closeErrorModal,
+    errorMessage,
     formState: { errors },
     setError,
     handleAddNew,
@@ -64,8 +74,7 @@ export default useCreateInscripcion;
 
 export const convertToFormData = (inscripcion: any): CreateInscripcion => {
   return {
-    idCurso: parseInt(inscripcion.idCurso),
-    idEstudiante: parseInt(inscripcion.idEstudiante),
-    estado: inscripcion.estado,
+    idEstudiante: inscripcion.idEstudiante,
+    idCurso: inscripcion.idCurso,
   };
 };

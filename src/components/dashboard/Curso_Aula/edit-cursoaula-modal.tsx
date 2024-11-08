@@ -20,6 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import ErrorModal from "@/components/ui/error-modal";
 
 interface Props {
   cursoaula: CursoAula;
@@ -28,7 +29,7 @@ interface Props {
 
 export default function EditCursoAulaModal({ cursoaulaId, cursoaula }: Props) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const { register, errors, handleSubmit, onSubmit, setValue } = useUpdateCursoAula({
+  const { register, errors, handleSubmit, onSubmit, setValue, errorMessage, closeErrorModal } = useUpdateCursoAula({
     setIsOpen: setIsEditModalOpen,
     cursoAulaId: cursoaulaId,
   });
@@ -130,6 +131,13 @@ export default function EditCursoAulaModal({ cursoaulaId, cursoaula }: Props) {
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

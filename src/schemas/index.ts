@@ -12,4 +12,5 @@ export * from "./auth/LoginSchema";
 export * from "./Horario/HorarioSchema";
 export * from "./Docente/DocenteSchema";
 export * from "./DocenteCurso/DocenteCursoSchema";
+export * from "./Estudiante/EstudianteSchema";
 

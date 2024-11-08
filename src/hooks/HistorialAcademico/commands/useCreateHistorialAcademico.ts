@@ -22,6 +22,7 @@ const useCreateHistorialAcademico = () => {
     resolver: zodResolver(createHistorialAcademicoSchema),
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   const handleAddNew = () => {
@@ -35,6 +36,9 @@ const useCreateHistorialAcademico = () => {
         queryKey: ["historialAcademico"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -47,13 +51,20 @@ const useCreateHistorialAcademico = () => {
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     register,
     handleSubmit,
     setValue,
+    closeErrorModal,
     formState: { errors },
     setError,
     handleAddNew,
+    errorMessage,
+    closeErrorModal,
     isOpen,
     setIsOpen,
     errors,

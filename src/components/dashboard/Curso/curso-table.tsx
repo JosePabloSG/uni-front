@@ -25,7 +25,6 @@ export default function CursoTable() {
             <TableHead>Nombre</TableHead>
             <TableHead>Creditos</TableHead>
             <TableHead>Horas/Semana</TableHead>
-            <TableHead>ID Programa</TableHead>
             <TableHead>Acciones</TableHead>
           </TableRow>
         </TableHeader>
@@ -36,7 +35,6 @@ export default function CursoTable() {
               <TableCell>{curso.nombre}</TableCell>
               <TableCell>{curso.creditos}</TableCell>
               <TableCell>{curso.horasSemana}</TableCell>
-              <TableCell>{curso.idProgAcademico}</TableCell>
               <TableCell>
                 {curso.idCurso !== undefined && (
                   <>

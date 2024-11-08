@@ -9,6 +9,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useCreateAula } from "@/hooks";
+import ErrorModal from "@/components/ui/error-modal";
 
 
 export default function AddAulaModal() {
@@ -20,6 +21,8 @@ export default function AddAulaModal() {
     isOpen,
     setIsOpen,
     errors,
+    errorMessage,
+    closeErrorModal,
   } = useCreateAula();
 
   return (
@@ -73,6 +76,13 @@ export default function AddAulaModal() {
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

@@ -16,6 +16,7 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select";
+import ErrorModal from "@/components/ui/error-modal";
   
 
 export default function AddHorarioModal() {
@@ -27,7 +28,9 @@ export default function AddHorarioModal() {
     isOpen,
     setIsOpen,
     errors,
-    setValue
+    setValue,
+    errorMessage,
+    closeErrorModal,
   } = useCreateHorario();
   const { cursos } = useGetAllCurso();
   return (
@@ -102,6 +105,13 @@ export default function AddHorarioModal() {
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

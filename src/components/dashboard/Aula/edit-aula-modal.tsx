@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import ErrorModal from "@/components/ui/error-modal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useUpdateAula } from "@/hooks";
@@ -21,7 +22,7 @@ interface Props {
 
 export default function EditAulaModal({ aulaId = 0, aula }: Props) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const { register, errors, handleSubmit, onSubmit } = useUpdateAula({
+  const { register, errors, handleSubmit, onSubmit,errorMessage,closeErrorModal } = useUpdateAula({
     setIsOpen: setIsEditModalOpen,
     aulaId: aulaId,
   });
@@ -101,6 +102,13 @@ export default function EditAulaModal({ aulaId = 0, aula }: Props) {
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

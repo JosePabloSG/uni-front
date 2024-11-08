@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import ErrorModal from "@/components/ui/error-modal";
 
 export default function AddHistorialAcademicoModal() {
   const {
@@ -27,6 +28,8 @@ export default function AddHistorialAcademicoModal() {
     setIsOpen,
     errors,
     setValue,
+    errorMessage,
+    closeErrorModal,
   } = useCreateHistorialAcademico();
   const { cursos } = useGetAllCurso();
 
@@ -99,6 +102,13 @@ export default function AddHistorialAcademicoModal() {
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

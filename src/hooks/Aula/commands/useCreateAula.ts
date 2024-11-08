@@ -21,6 +21,7 @@ const useCreateAula = () => {
     resolver: zodResolver(createAulaSchema),
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   const handleAddNew = () => {
@@ -34,6 +35,9 @@ const useCreateAula = () => {
         queryKey: ["Aula"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -46,6 +50,10 @@ const useCreateAula = () => {
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     register,
     handleSubmit,
@@ -55,6 +63,8 @@ const useCreateAula = () => {
     handleAddNew,
     isOpen,
     setIsOpen,
+    closeErrorModal,
+    errorMessage,
     errors,
     onSubmit,
   };

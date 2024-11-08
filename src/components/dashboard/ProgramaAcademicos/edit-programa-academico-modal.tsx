@@ -11,6 +11,15 @@ import { Label } from "@/components/ui/label";
 import useUpdateProgramaAcademico from "@/hooks/ProgramaAcademico/commands/useUpdateProgramaAcademico";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useGetAllFacultad, useGetAllNivelAcademico } from "@/hooks";
+import ErrorModal from "@/components/ui/error-modal";
 
 interface Props {
   programaAcademico: any;
@@ -22,11 +31,13 @@ export default function EditProgramaAcademicoModal({
   programaAcademico,
 }: Props) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const { register, errors, handleSubmit, onSubmit } =
+  const { register, errors, handleSubmit, onSubmit,setValue, closeErrorModal ,errorMessage } =
     useUpdateProgramaAcademico({
       setIsOpen: setIsEditModalOpen,
       programaAcademicoId: programaAcademicoId,
     });
+  const { nivelAcademicos } = useGetAllNivelAcademico();
+  const { facultad } = useGetAllFacultad();
 
   return (
     <>
@@ -59,19 +70,80 @@ export default function EditProgramaAcademicoModal({
                 )}
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="Duracion">Duración</Label>
+                <Label htmlFor="duracion">Duración</Label>
                 <Input
-                  defaultValue={programaAcademico.Duracion}
-                  id="Duracion"
-                  {...register("Duracion")}
+                  defaultValue={programaAcademico.duracion}
+                  id="duracion"
+                  {...register("duracion")}
                 />
-                {errors.Duracion && (
+                {errors.duracion && (
                   <p className="text-red-500 text-xs">
-                    {errors.Duracion.message}
+                    {errors.duracion.message}
                   </p>
                 )}
               </div>
-              
+
+              <div className="grid gap-2">
+                <Label htmlFor="idFacultad">Facultad</Label>
+                <Select
+                  defaultValue={programaAcademico.idFacultad?.toString()}
+                  onValueChange={(value) =>
+                    setValue("idFacultad", Number(value))
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Seleccionar una facultad" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {facultad &&
+                      facultad.map((facultad) => (
+                        <SelectItem
+                          key={facultad?.idFacultad}
+                          value={(facultad?.idFacultad ?? "").toString()}
+                        >
+                          {facultad?.nombreFacultad}
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
+                {errors.idFacultad && (
+                  <p className="text-red-500 text-xs">
+                    {errors.idFacultad.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="IdNivelAcademico">Nivel Académico</Label>
+                <Select
+                  defaultValue={programaAcademico.idNivelAcademico?.toString()}
+                  onValueChange={(value) =>
+                    setValue("idNivelAcademico", Number(value))
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Seleccionar un nivel académico" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {nivelAcademicos &&
+                      nivelAcademicos.map((nivelAcademico) => (
+                        <SelectItem
+                          key={nivelAcademico?.idNivelAcademico}
+                          value={(
+                            nivelAcademico?.idNivelAcademico ?? ""
+                          ).toString()}
+                        >
+                          {nivelAcademico?.nombreNivelAcademico}
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
+                {errors.idNivelAcademico && (
+                  <p className="text-red-500 text-xs">
+                    {errors.idNivelAcademico.message}
+                  </p>
+                )}
+              </div>
             </div>
             <DialogFooter>
               <Button type="submit">Guardar Cambios</Button>
@@ -79,6 +151,13 @@ export default function EditProgramaAcademicoModal({
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

@@ -35,6 +35,9 @@ const useUpdateFacultad = ({ setIsOpen, facultadId }: Props) => {
         queryKey: ["facultad"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -47,11 +50,16 @@ const useUpdateFacultad = ({ setIsOpen, facultadId }: Props) => {
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     setIsOpen,
     errorMessage,
     handleSubmit,
     setValue,
+    closeErrorModal,
     setErrorMessage,
     onSubmit,
     register,

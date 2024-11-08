@@ -10,6 +10,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Plus } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import ErrorModal from "@/components/ui/error-modal";
 
 
 export default function AddNivelAcademicoModal() {
@@ -21,6 +22,8 @@ export default function AddNivelAcademicoModal() {
     isOpen,
     setIsOpen,
     errors,
+    errorMessage,
+    closeErrorModal,
   } = useCreateNivelAcademico();
 
   return (
@@ -54,6 +57,13 @@ export default function AddNivelAcademicoModal() {
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

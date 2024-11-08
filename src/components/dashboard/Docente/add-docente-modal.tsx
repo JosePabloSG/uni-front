@@ -9,6 +9,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useCreateDocente } from "@/hooks";
+import ErrorModal from "@/components/ui/error-modal";
 
 export default function AddDocenteModal() {
   const {
@@ -19,6 +20,8 @@ export default function AddDocenteModal() {
     isOpen,
     setIsOpen,
     errors,
+    errorMessage,
+    closeErrorModal,
   } = useCreateDocente();
 
   return (
@@ -96,6 +99,13 @@ export default function AddDocenteModal() {
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

@@ -34,6 +34,9 @@ const useUpdateInscripcion = ({ setIsOpen, inscripcionId }: Props) => {
         queryKey: ["inscripcion"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -46,6 +49,10 @@ const useUpdateInscripcion = ({ setIsOpen, inscripcionId }: Props) => {
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     setIsOpen,
     errorMessage,
@@ -55,6 +62,7 @@ const useUpdateInscripcion = ({ setIsOpen, inscripcionId }: Props) => {
     onSubmit,
     register,
     mutation,
+    closeErrorModal,
     errors,
     setError,
   };

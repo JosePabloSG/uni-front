@@ -7,8 +7,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { useCreateInscripcion, useGetAllCurso } from "@/hooks";
+import { useCreateInscripcion, useGetAllCurso, useGetAllEstudiante } from "@/hooks";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import ErrorModal from "@/components/ui/error-modal";
 
 
 export default function AddInscripcionModal() {
@@ -20,8 +21,11 @@ export default function AddInscripcionModal() {
     setIsOpen,
     errors,
     setValue,
+    errorMessage,
+    closeErrorModal,
   } = useCreateInscripcion();
   const { cursos } = useGetAllCurso();
+  const { estudiante } = useGetAllEstudiante();
   return (
     <>
       <Button onClick={handleAddNew} className="mb-4">
@@ -63,7 +67,7 @@ export default function AddInscripcionModal() {
                 )}
               </div>
 
-              {/* <div className="grid gap-2">
+              <div className="grid gap-2">
                 <Label htmlFor="idEstudiante">Estudiante</Label>
                 <Select
                   onValueChange={(value) =>
@@ -74,13 +78,13 @@ export default function AddInscripcionModal() {
                     <SelectValue placeholder="Seleccionar un estudiante" />
                   </SelectTrigger>
                   <SelectContent>
-                    {estudiantes &&
-                      estudiantes.map((estudiante: { idEstudiante: Key | null | undefined; nombreCompletoEstudiante: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined; }) => (
+                    {estudiante &&
+                      estudiante.map((estudiante) => (
                         <SelectItem
                           key={estudiante?.idEstudiante}
                           value={(estudiante?.idEstudiante ?? "").toString()}
                         >
-                          {estudiante?.nombreCompletoEstudiante}
+                          {estudiante?.nombre + " " + estudiante?.apellido1 + " " + estudiante?.apellido2}
                         </SelectItem>
                       ))}
                   </SelectContent>
@@ -90,7 +94,7 @@ export default function AddInscripcionModal() {
                     {errors.idEstudiante.message}
                   </p>
                 )}
-              </div> */}
+              </div>
             </div>
             <DialogFooter className="mt-4">
               <Button type="submit">Guardar Cambios</Button>
@@ -98,6 +102,13 @@ export default function AddInscripcionModal() {
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

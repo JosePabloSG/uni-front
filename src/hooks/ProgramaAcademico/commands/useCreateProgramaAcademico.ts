@@ -21,6 +21,7 @@ const useCreateProgramaAcademico = () => {
     resolver: zodResolver(createProgramaAcademicoSchema),
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   const handleAddNew = () => {
@@ -34,6 +35,9 @@ const useCreateProgramaAcademico = () => {
         queryKey: ["programaAcademico"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -46,10 +50,17 @@ const useCreateProgramaAcademico = () => {
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     register,
     handleSubmit,
     setValue,
+    closeErrorModal,
+    setErrorMessage,
+    errorMessage,
     formState: { errors },
     setError,
     handleAddNew,
@@ -65,8 +76,8 @@ export default useCreateProgramaAcademico;
 export const convertToFormData = (programaAcademico: any): CreateProgramaAcademico => {
   return {
     nombrePrograma: programaAcademico.nombrePrograma,
-    Duracion: programaAcademico.Duracion,
-    IdNivelAcademico: parseInt(programaAcademico.IdNivelAcademico),
-    IdFacultad: parseInt(programaAcademico.IdFacultad),
+    duracion: programaAcademico.duracion,
+    idNivelAcademico: parseInt(programaAcademico.idNivelAcademico),
+    idFacultad: parseInt(programaAcademico.idFacultad),
   };
 };

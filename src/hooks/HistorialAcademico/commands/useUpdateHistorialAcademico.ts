@@ -35,6 +35,9 @@ const useUpdateHistorialAcademico = ({ setIsOpen, historialAcademicoId }: Props)
         queryKey: ["historialAcademico"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -47,12 +50,17 @@ const useUpdateHistorialAcademico = ({ setIsOpen, historialAcademicoId }: Props)
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     setIsOpen,
     errorMessage,
     handleSubmit,
     setValue,
     setErrorMessage,
+    closeErrorModal,
     onSubmit,
     register,
     mutation,

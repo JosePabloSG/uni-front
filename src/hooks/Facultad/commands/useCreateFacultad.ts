@@ -23,6 +23,7 @@ const useCreateFacultad = () => {
     resolver: zodResolver(createFacultadSchema),
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   const handleAddNew = () => {
@@ -36,6 +37,9 @@ const useCreateFacultad = () => {
         queryKey: ["facultad"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -48,6 +52,10 @@ const useCreateFacultad = () => {
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+  
   return {
     register,
     handleSubmit,
@@ -59,6 +67,8 @@ const useCreateFacultad = () => {
     setIsOpen,
     errors,
     onSubmit,
+    errorMessage,
+    closeErrorModal,
   };
 };
 

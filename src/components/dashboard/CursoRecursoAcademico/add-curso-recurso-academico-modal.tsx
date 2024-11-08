@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import ErrorModal from "@/components/ui/error-modal";
 
 export default function AddCursoRecursoAcademicoModal() {
   const {
@@ -27,6 +28,8 @@ export default function AddCursoRecursoAcademicoModal() {
     setIsOpen,
     errors,
     setValue,
+    errorMessage,
+    closeErrorModal,
   } = useCreateCursoRecursoAcademico();
   const { cursos } = useGetAllCurso();
   const { recursosAcademicos } = useGetAllRecursosAcademicos();
@@ -106,6 +109,13 @@ export default function AddCursoRecursoAcademicoModal() {
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

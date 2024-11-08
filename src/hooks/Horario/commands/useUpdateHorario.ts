@@ -34,6 +34,9 @@ const useUpdateHorario = ({ setIsOpen, horarioId }: Props) => {
         queryKey: ["Horario"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -46,6 +49,10 @@ const useUpdateHorario = ({ setIsOpen, horarioId }: Props) => {
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     setIsOpen,
     errorMessage,
@@ -54,6 +61,7 @@ const useUpdateHorario = ({ setIsOpen, horarioId }: Props) => {
     setErrorMessage,
     onSubmit,
     register,
+    closeErrorModal,
     mutation,
     errors,
     setError,

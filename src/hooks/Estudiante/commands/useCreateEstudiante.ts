@@ -21,6 +21,7 @@ const useCreateEstudiante = () => {
     resolver: zodResolver(createEstudianteSchema),
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   const handleAddNew = () => {
@@ -34,6 +35,9 @@ const useCreateEstudiante = () => {
         queryKey: ["estudiante"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -44,6 +48,10 @@ const useCreateEstudiante = () => {
     } catch (error) {
       setIsOpen(false);
     }
+  };
+
+  const closeErrorModal = () => {
+    setErrorMessage(null);
   };
 
   return {
@@ -57,6 +65,8 @@ const useCreateEstudiante = () => {
     setIsOpen,
     errors,
     onSubmit,
+    errorMessage,
+    closeErrorModal,
   };
 };
 

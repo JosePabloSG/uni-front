@@ -21,6 +21,7 @@ const useCreateCursoAula = () => {
     resolver: zodResolver(createCursoAulaSchema),
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   const handleAddNew = () => {
@@ -46,6 +47,10 @@ const useCreateCursoAula = () => {
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     register,
     handleSubmit,
@@ -54,6 +59,8 @@ const useCreateCursoAula = () => {
     setError,
     handleAddNew,
     isOpen,
+    closeErrorModal,
+    errorMessage,
     setIsOpen,
     errors,
     onSubmit,

@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import ErrorModal from "@/components/ui/error-modal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useUpdateEstudiante } from "@/hooks";
@@ -23,7 +24,7 @@ export default function EditEstudianteModal({
   estudiante,
 }: Props) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const { register, errors, handleSubmit, onSubmit } = useUpdateEstudiante({
+  const { register, errors, handleSubmit, onSubmit, errorMessage, closeErrorModal } = useUpdateEstudiante({
     setIsOpen: setIsEditModalOpen,
     estudianteId: estudianteId,
   });
@@ -135,6 +136,13 @@ export default function EditEstudianteModal({
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

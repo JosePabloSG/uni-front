@@ -20,6 +20,7 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select";
+import ErrorModal from "@/components/ui/error-modal";
 
 interface Props {
   horario: Horario;
@@ -29,7 +30,7 @@ interface Props {
 export default function EditHorarioModal({ horarioId = 0, horario }: Props) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { cursos } = useGetAllCurso();
-  const { register, errors, handleSubmit, onSubmit, setValue } = useUpdateHorario({
+  const { register, errors, handleSubmit, onSubmit, setValue, errorMessage, closeErrorModal } = useUpdateHorario({
     setIsOpen: setIsEditModalOpen,
     horarioId: horarioId,
   });
@@ -128,6 +129,13 @@ export default function EditHorarioModal({ horarioId = 0, horario }: Props) {
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

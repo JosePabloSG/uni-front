@@ -11,15 +11,14 @@ export interface ProgramaAcademico {
 
 export interface CreateProgramaAcademico {
   nombrePrograma: string;
-  Duracion: number;
-  IdNivelAcademico: number;
-  IdFacultad: number;
+  duracion: number;
+  idNivelAcademico: number;
+  idFacultad: number;
 }
 
-
-export interface UpdateProgramaAcademico {
+export interface UpdateProgramaAcademico { 
   nombrePrograma?: string;
-  Duracion?: number;
-  IdNivelAcademico?: number;
-  IdFacultad?: number;
+  duracion?: number;
+  idNivelAcademico?: number;
+  idFacultad?: number;
 }

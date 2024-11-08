@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import ErrorModal from "@/components/ui/error-modal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useUpdateHistorialAcademico } from "@/hooks";
@@ -24,7 +25,7 @@ export default function EditHistorialAcademicoModal({
   historial,
 }: Props) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const { register, errors, handleSubmit, onSubmit } =
+  const { register, errors, handleSubmit, onSubmit, errorMessage, closeErrorModal } =
     useUpdateHistorialAcademico({
       setIsOpen: setIsEditModalOpen,
       historialAcademicoId: historialAcademicoId,
@@ -93,6 +94,13 @@ export default function EditHistorialAcademicoModal({
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

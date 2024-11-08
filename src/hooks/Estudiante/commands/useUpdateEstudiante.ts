@@ -34,6 +34,9 @@ const useUpdateEstudiante = ({ setIsOpen, estudianteId }: Props) => {
         queryKey: ["estudiante"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -46,6 +49,10 @@ const useUpdateEstudiante = ({ setIsOpen, estudianteId }: Props) => {
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     setIsOpen,
     errorMessage,
@@ -56,6 +63,7 @@ const useUpdateEstudiante = ({ setIsOpen, estudianteId }: Props) => {
     register,
     mutation,
     errors,
+    closeErrorModal,
     setError,
   };
 };

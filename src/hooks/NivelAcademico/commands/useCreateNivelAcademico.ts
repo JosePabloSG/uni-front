@@ -11,6 +11,7 @@ import { CreateNivelAcademico } from "@/types";
 type FormsFields = z.infer<typeof createNivelAcademicoSchema>;
 
 const useCreateNivelAcademico = () => {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -34,6 +35,9 @@ const useCreateNivelAcademico = () => {
         queryKey: ["nivelAcademicos"],
       });
     },
+    onError: (error) => {
+      setErrorMessage(error.message);
+    },
   });
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
@@ -46,6 +50,10 @@ const useCreateNivelAcademico = () => {
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     register,
     handleSubmit,
@@ -53,10 +61,12 @@ const useCreateNivelAcademico = () => {
     formState: { errors },
     setError,
     handleAddNew,
+    closeErrorModal,
     isOpen,
     setIsOpen,
     errors,
     onSubmit,
+    errorMessage,
   };
 };
 

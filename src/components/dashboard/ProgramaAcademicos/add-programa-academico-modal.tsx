@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useGetAllFacultad, useGetAllNivelAcademico } from "@/hooks";
+import ErrorModal from "@/components/ui/error-modal";
 
 export default function AddProgramaAcademicoModal() {
   const {
@@ -29,6 +30,8 @@ export default function AddProgramaAcademicoModal() {
     setIsOpen,
     setValue,
     errors,
+    errorMessage,
+    closeErrorModal,
   } = useCreateProgramaAcademico();
   const { nivelAcademicos } = useGetAllNivelAcademico();
   const { facultad } = useGetAllFacultad();
@@ -55,19 +58,19 @@ export default function AddProgramaAcademicoModal() {
                 )}
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="Duracion">Duración</Label>
-                <Input id="Duracion" type="number" {...register("Duracion")} />
-                {errors.Duracion && (
+                <Label htmlFor="duracion">Duración por ciclos</Label>
+                <Input id="duracion" type="number" {...register("duracion")} />
+                {errors.duracion && (
                   <p className="text-red-500 text-xs">
-                    {errors.Duracion.message}
+                    {errors.duracion.message}
                   </p>
                 )}
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="IdNivelAcademico">Nivel Académico</Label>
+                <Label htmlFor="idNivelAcademico">Nivel Académico</Label>
                 <Select
                   onValueChange={(value) =>
-                    setValue("IdNivelAcademico", Number(value))
+                    setValue("idNivelAcademico", Number(value))
                   }
                 >
                   <SelectTrigger>
@@ -87,9 +90,9 @@ export default function AddProgramaAcademicoModal() {
                       ))}
                   </SelectContent>
                 </Select>
-                {errors.IdNivelAcademico && (
+                {errors.idNivelAcademico && (
                   <p className="text-red-500 text-xs">
-                    {errors.IdNivelAcademico.message}
+                    {errors.idNivelAcademico.message}
                   </p>
                 )}
               </div>
@@ -97,7 +100,7 @@ export default function AddProgramaAcademicoModal() {
                 <Label htmlFor="idFacultad">Facultad</Label>
                 <Select
                   onValueChange={(value) =>
-                    setValue("IdFacultad", Number(value))
+                    setValue("idFacultad", Number(value))
                   }
                 >
                   <SelectTrigger>
@@ -115,9 +118,9 @@ export default function AddProgramaAcademicoModal() {
                       ))}
                   </SelectContent>
                 </Select>
-                {errors.IdFacultad && (
+                {errors.idFacultad && (
                   <p className="text-red-500 text-xs">
-                    {errors.IdFacultad.message}
+                    {errors.idFacultad.message}
                   </p>
                 )}
               </div>
@@ -128,6 +131,13 @@ export default function AddProgramaAcademicoModal() {
           </form>
         </DialogContent>
       </Dialog>
+      {errorMessage && (
+        <ErrorModal
+          isOpen={!!errorMessage}
+          onClose={closeErrorModal}
+          message={errorMessage}
+        />
+      )}
     </>
   );
 }

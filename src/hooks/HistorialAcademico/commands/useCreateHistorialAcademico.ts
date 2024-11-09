@@ -64,7 +64,6 @@ const useCreateHistorialAcademico = () => {
     setError,
     handleAddNew,
     errorMessage,
-    closeErrorModal,
     isOpen,
     setIsOpen,
     errors,
@@ -76,10 +75,8 @@ export default useCreateHistorialAcademico;
 
 export const convertToFormData = (historialacademico: any): CreateHistorialAcademico => {
   return {
-    IdHistorialAcademico: parseInt(historialacademico.IdHistorialAcademico),
-    Nota: parseInt(historialacademico.Nota),
-    FechaCalificacion: historialacademico.FechaCalificacion,
-    IdCurso: parseInt(historialacademico.IdCurso),
-    IdEstudiante: parseInt(historialacademico.IdEstudiante),
+    nota: parseInt(historialacademico.nota),
+    idCurso: parseInt(historialacademico.idCurso),
+    idEstudiante: parseInt(historialacademico.idEstudiante),
   };
 };

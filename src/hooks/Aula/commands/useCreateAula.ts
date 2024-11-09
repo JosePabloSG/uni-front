@@ -22,7 +22,7 @@ const useCreateAula = (idUsuario: number) => {
   });
 
   const [isOpen, setIsOpen] = useState(false);
-  const [responseMessage, setResponseMessage] = useState<string | null>(null); // Define el mensaje de respuesta
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const queryClient = useQueryClient();
 
@@ -36,10 +36,9 @@ const useCreateAula = (idUsuario: number) => {
       queryClient.invalidateQueries({
         queryKey: ["Aula"],
       });
-      setResponseMessage("Aula creada exitosamente"); // Mensaje de éxito
     },
     onError: (error: any) => {
-      setResponseMessage(error.message || "Error en la solicitud"); // Mensaje de error
+      setErrorMessage(error.message);
     },
   });
 
@@ -53,6 +52,10 @@ const useCreateAula = (idUsuario: number) => {
     }
   };
 
+  const closeErrorModal = () => {
+    setErrorMessage(null);
+  };
+
   return {
     register,
     handleSubmit,
@@ -63,8 +66,8 @@ const useCreateAula = (idUsuario: number) => {
     isOpen,
     setIsOpen,
     errors,
-    responseMessage, // Retorna el mensaje de respuesta
-    setResponseMessage, // Para limpiar el mensaje desde el componente principal
+    errorMessage,
+    closeErrorModal,
     onSubmit,
   };
 };

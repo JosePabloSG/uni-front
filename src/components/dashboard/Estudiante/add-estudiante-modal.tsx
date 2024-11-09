@@ -9,9 +9,12 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useCreateEstudiante } from "@/hooks";
+import { useSession } from "next-auth/react";
 import ErrorModal from "@/components/ui/error-modal";
 
 export default function AddEstudianteModal() {
+  const { data: session } = useSession();
+  const idUsuario = Number(session?.user?.employeeId) || 0;
   const {
     register,
     onSubmit,
@@ -22,7 +25,7 @@ export default function AddEstudianteModal() {
     errors,
     errorMessage,
     closeErrorModal,
-  } = useCreateEstudiante();
+  } = useCreateEstudiante(idUsuario);
 
   return (
     <>

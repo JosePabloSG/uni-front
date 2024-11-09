@@ -1,46 +1,56 @@
-import { deleteAula } from "@/services";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteAula } from "@/services/Aula/commands/deleteAula";
 
-const useDeleteAula = ({ itemId }: { itemId: number }) => {
-  const queryClient = useQueryClient();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+const useDeleteAula = (idUsuario: number) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const queryClient = useQueryClient();
 
+  // Mutación para eliminar un aula, pasando idUsuario también
   const mutation = useMutation({
-    mutationFn: (itemId: number) => deleteAula(itemId),
+    mutationFn: (idAula: number) => deleteAula(idAula, idUsuario),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["Aula"],
-      });
+      queryClient.invalidateQueries({ queryKey: ["Aula"] });
+      setIsOpen(false); // Cierra el modal en caso de éxito
     },
-    onError: (error) => {
+    onError: (error: any) => {
       setErrorMessage(error.message);
+      setIsOpen(false); // Cierra el modal en caso de error
     },
   });
-  const confirmDelete = async () => {
+
+  // Función para manejar la eliminación
+  const handleDeleteAula = async (idAula: number) => {
     try {
-      await mutation.mutateAsync(itemId);
+      await mutation.mutateAsync(idAula);
+    } catch (error) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage("Ocurrió un error desconocido");
+      }
       setIsOpen(false);
-    } catch (error: any) {
-      setErrorMessage(error.message);
     }
   };
-
-  const handleDelete = async () => {
+  
+  // Función para abrir el modal de eliminación
+  const handleOpenDeleteModal = () => {
     setIsOpen(true);
   };
 
+  // Función para cerrar el modal de error
   const closeErrorModal = () => {
     setErrorMessage(null);
   };
+
   return {
+    handleDeleteAula,
+    handleOpenDeleteModal,
     isOpen,
-    handleDelete,
+    setIsOpen,
     errorMessage,
     closeErrorModal,
-    setIsOpen,
-    confirmDelete,
   };
 };
 

@@ -40,10 +40,12 @@ export class GenericRepository<T extends Record<string, any>>
     });
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: number, idUsuario: number): Promise<void> {
+    console.log("Datos recibidos en delete:", { id, idUsuario });
+
     await httpClient<void>({
       method: HttpMethod.DELETE,
-      endpoint: `${this.endpoint}/${id}`,
+      endpoint: `${this.endpoint}/${id}?idUsuario=${idUsuario}`, // Pasa idUsuario en la URL
     });
   }
 }

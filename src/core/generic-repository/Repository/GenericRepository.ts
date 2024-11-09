@@ -1,5 +1,3 @@
-// repositories/GenericRepository.ts
-
 import { httpClient, HttpMethod } from "@/helpers/httpClient";
 import { IRepository } from "../Interfaces/IRepository";
 
@@ -27,23 +25,12 @@ export class GenericRepository<T extends Record<string, any>>
   }
 
   async create(item: T): Promise<T> {
-    console.log("Datos recibidos en create:", item);
-    
-    const response = await httpClient<{ data: T; message: string; success: boolean }>({
-        method: HttpMethod.POST,
-        endpoint: this.endpoint,
-        data: item,
+    return await httpClient<T>({
+      method: HttpMethod.POST,
+      endpoint: this.endpoint,
+      data: item,
     });
-
-    console.log("Respuesta del servidor:", response);
-
-    if (response.success) {
-        return response.data;
-    } else {
-        console.error("Error al crear:", response.message);
-        throw new Error(response.message);
-    }
-}
+  }
 
   async update(id: number, item: Partial<T>): Promise<T> {
     return await httpClient<T>({

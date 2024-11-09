@@ -27,7 +27,7 @@ import {
   Pie,
   Cell,
 } from "recharts";
-import { Users, BookOpen, School, Star } from "lucide-react";
+import { Users, BookOpen, School, Tool } from "lucide-react";
 import {
   useGetAllDimEstudiante,
   useGetAllHechosDesempeñoAcademico,
@@ -60,11 +60,11 @@ export default function UniversidadDashboard() {
   const [desempenoAcademico, setDesempenoAcademico] = useState<
     { nombre: string; promedio: number }[]
   >([]);
-  const [cargaDocente, setCargaDocente] = useState<
+  const [cargaDocenteData, setCargaDocenteData] = useState<
     { nombre: string; carga: number }[]
   >([]);
-  const [usoRecursos, setUsoRecursos] = useState<
-    { nombre: string; uso: number }[]
+  const [usoRecursosData, setUsoRecursosData] = useState<
+    { recurso: string; uso: number }[]
   >([]);
   const [inscripcionesTendencia, setInscripcionesTendencia] = useState<
     { fecha: string; cantidad: number }[]
@@ -140,12 +140,52 @@ export default function UniversidadDashboard() {
         totalNotas / (hechosDesempeñoAcademico.length || 1) || 0;
       setPromedioGeneral(parseFloat(promedioGeneral.toFixed(2)));
     }
+
+    // Procesar datos de Carga Docente
+    if (dimDocente && hechosCargaDocente) {
+      const cargaData = dimDocente.map((docente) => {
+        const cargasDocente = hechosCargaDocente.filter(
+          (hecho) => hecho.idDocente === docente.idDocente
+        );
+        const totalHoras = cargasDocente.reduce(
+          (acc, curr) => acc + (curr.horasSemana || 0),
+          0
+        );
+        return {
+          nombre: `${docente.nombre} ${docente.apellido1} ${docente.apellido2}`,
+          carga: totalHoras,
+        };
+      });
+      setCargaDocenteData(cargaData);
+    }
+
+    // Procesar datos de Uso de Recursos
+    if (dimRecursoAcademico && hechosUsoRecurso) {
+      const usoData = dimRecursoAcademico.map((recurso) => {
+        const usosRecurso = hechosUsoRecurso.filter(
+          (hecho) => hecho.idRecursoAcademico === recurso.idRecursoAcademico
+        );
+        const totalUso = usosRecurso.reduce(
+          (acc, curr) => acc + (curr.cantidadUso || 0),
+          0
+        );
+        return {
+          recurso: recurso.tipo,
+          uso: totalUso,
+        };
+      });
+      setUsoRecursosData(usoData);
+    }
   }, [
     dimEstudiante,
     hechosDesempeñoAcademico,
     hechosInscripcion,
     dimTiempo,
     dimCurso,
+    dimDocente,
+    hechosCargaDocente,
+    dimRecursoAcademico,
+    hechosUsoRecurso,
   ]);
 
   return (
@@ -158,6 +198,8 @@ export default function UniversidadDashboard() {
         <TabsList>
           <TabsTrigger value="desempeno">Desempeño Académico</TabsTrigger>
           <TabsTrigger value="inscripciones">Inscripciones</TabsTrigger>
+          <TabsTrigger value="carga-docente">Carga Docente</TabsTrigger>
+          <TabsTrigger value="uso-recursos">Uso de Recursos</TabsTrigger>
         </TabsList>
 
         <TabsContent value="desempeno">
@@ -198,6 +240,65 @@ export default function UniversidadDashboard() {
                     <Tooltip />
                     <Line type="monotone" dataKey="cantidad" stroke="#8884d8" />
                   </LineChart>
+                </ResponsiveContainer>
+              ) : (
+                <p>No hay datos disponibles para mostrar.</p>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="carga-docente">
+          <Card>
+            <CardHeader>
+              <CardTitle>Carga Horaria de Docentes</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {cargaDocenteData.length > 0 ? (
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={cargaDocenteData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="nombre" />
+                    <YAxis />
+                    <Tooltip />
+                    <Bar dataKey="carga" fill="#82ca9d" />
+                  </BarChart>
+                </ResponsiveContainer>
+              ) : (
+                <p>No hay datos disponibles para mostrar.</p>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="uso-recursos">
+          <Card>
+            <CardHeader>
+              <CardTitle>Uso de Recursos Académicos</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {usoRecursosData.length > 0 ? (
+                <ResponsiveContainer width="100%" height={300}>
+                  <PieChart>
+                    <Pie
+                      data={usoRecursosData}
+                      dataKey="uso"
+                      nameKey="recurso"
+                      cx="50%"
+                      cy="50%"
+                      outerRadius={100}
+                      fill="#8884d8"
+                      label
+                    >
+                      {usoRecursosData.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                  </PieChart>
                 </ResponsiveContainer>
               ) : (
                 <p>No hay datos disponibles para mostrar.</p>

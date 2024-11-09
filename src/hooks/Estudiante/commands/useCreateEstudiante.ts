@@ -10,7 +10,7 @@ import { CreateEstudiante } from "@/types";
 
 type FormsFields = z.infer<typeof createEstudianteSchema>;
 
-const useCreateEstudiante = () => {
+const useCreateEstudiante = (idUsuario: number) => {
   const {
     register,
     handleSubmit,
@@ -29,7 +29,7 @@ const useCreateEstudiante = () => {
   };
 
   const mutation = useMutation({
-    mutationFn: (data: FormsFields) => createEstudiante(data),
+    mutationFn: (data: FormsFields) => createEstudiante({...data, IdUsuario: idUsuario} ),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["estudiante"],
@@ -42,7 +42,7 @@ const useCreateEstudiante = () => {
 
   const onSubmit: SubmitHandler<FormsFields> = async (data) => {
     try {
-      const formData = convertToFormData(data);
+      const formData = convertToFormData(data, idUsuario);
       await mutation.mutateAsync(formData);
       setIsOpen(false);
     } catch (error) {
@@ -72,7 +72,7 @@ const useCreateEstudiante = () => {
 
 export default useCreateEstudiante;
 
-export const convertToFormData = (estudiante: any): CreateEstudiante => {
+export const convertToFormData = (estudiante: any, idUsuario: number): CreateEstudiante => {
   return {
     nombre: estudiante.nombre,
     apellido1: estudiante.apellido1,
@@ -80,5 +80,6 @@ export const convertToFormData = (estudiante: any): CreateEstudiante => {
     email: estudiante.email,
     telefono: estudiante.telefono,
     direccion: estudiante.direccion,
+    IdUsuario: idUsuario,
   };
 };

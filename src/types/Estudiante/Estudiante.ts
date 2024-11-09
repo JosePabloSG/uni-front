@@ -7,6 +7,7 @@ export interface Estudiante {
   telefono?: string;
   email?: string;
   direccion?: string;
+  IdUsuario: number;
 }
 
 export interface CreateEstudiante {
@@ -16,6 +17,7 @@ export interface CreateEstudiante {
   email: string;
   telefono: string;
   direccion: string;
+  IdUsuario: number;
 }
 
 
